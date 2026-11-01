@@ -1,0 +1,15 @@
+/*  Integramod 1.5.0 Style Sheet
+    --------------------------------------------------------------
+	Style name:		Default
+	Based on style:	Default (this is the default Integramod 150 style)
+	Original author:	subBlue ( http://www.subBlue.com/ )
+	Modified by:		
+	
+	Copyright © 2004 - 2011 The Integramod Group ( http://www.integramod.com/ )
+    --------------------------------------------------------------
+*/
+@import url("responsive.css");
+@import url("Default.css");
+@import url("buttons.css");
+@import url("report_hack.css");
+

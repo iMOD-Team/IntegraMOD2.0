@@ -1,0 +1,320 @@
+/* fiSubIce  */
+@import url("main.css");
+@import url("fisub.css");
+@import url("report_hack.css");
+
+/* Fonts */
+:root {
+  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Source Sans Pro",  sans-serif;
+  --nav-font: "Poppins",  sans-serif;
+}
+
+/* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
+:root { 
+  --background-color: #ffffff; /* Background color for the entire website, including individual sections */
+  --default-color: #1a1f24; /* Default color used for the majority of the text content across the entire website */
+  --heading-color: #485664; /* Color for headings, subheadings and title throughout the website */
+  --accent-color: #11C0DF; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --contrast-color: #ffffff; /* The contrast color is used for elements when the background color is one of the heading, accent, or default colors. Its purpose is to ensure proper contrast and readability when placed over these more dominant colors */
+}
+
+/* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
+:root {
+  --nav-color: #32475f;  /* The default color of the main navmenu links */
+  --nav-hover-color: #839fbc; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
+  --nav-dropdown-color: #485664; /* Used for navigation links of the dropdown items in the navigation menu. */
+  --nav-dropdown-hover-color: #11C0DF; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+}
+
+/* Template Custom Colors */
+:root {
+  --footer-background-color: #3a4753;
+}
+
+/* Smooth scroll */
+:root {
+  scroll-behavior: smooth;
+}
+/* The content of the posts (body of text) */
+body{background:#ecf0f6;color:#000000;}
+
+/* This is the border line & background color round the entire page */
+.bodyline{background:#f7f8fc;border:1px solid #98aab1;}
+
+/* This is the outline round the main forum tables */
+.forumline{background:#ffffff;border:1px solid #486386;border-collapse:separate;border-spacing:1px;}
+
+/* The largest text used in the index page title and toptic title etc. */
+.maintitle,h1{color:#839fbc;}
+
+.explaintitle{color:#5c81b1;}
+
+/* General page style */
+a:link,a:active,a:visited,a.postlink{color:#32475f;}
+a:hover{color:#839fbc;}
+
+/* titles for the topics:could specify viewed link color too */
+.topictitle {}
+a.topictitle:visited {color:#496687;}
+a.topictitle:hover {color:#839fbc;}
+
+
+hr {border-style:solid;border-color:#587DA3;}
+
+.fa:before {
+	color:#587DA3;
+}
+
+
+.hov, .fa {
+	color:#587DA3 !important;
+}
+
+a .fa:hover:before {
+	color:#32475F !important;
+}
+
+/* Category gradients*/
+.cat, .catHead, .catSides, .catLeft, .catRight, .catBottom {
+	color:#516a88;
+	background:#d9e2ec url(../images/cellpic1.gif) repeat-x left top;
+	height:27px;
+	line-height:27px;
+	padding:0 4px;
+}
+
+/* This is the gradient background at the top of the page */
+.topbkg {
+	background: #b4c5d5; /* Old browsers */
+	background: -moz-linear-gradient(top, #b4c5d5 0%, #dbe3ee 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #b4c5d5 0%,#dbe3ee 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #b4c5d5 0%,#dbe3ee 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4c5d5', endColorstr='#dbe3ee',GradientType=0 ); /* IE6-9 */
+}
+.topnav, .btmnav {
+	background: #e2e9f1; /* Old browsers */
+	background: -moz-linear-gradient(top, #e2e9f1 0%, #becde0 75%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #e2e9f1 0%,#becde0 75%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #e2e9f1 0%,#becde0 75%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e9f1', endColorstr='#becde0',GradientType=0 ); /* IE6-9 */border-color:#91a0ae;
+}
+.qb  {
+	background: #e2e9f1; /* Old browsers */
+	background: -moz-linear-gradient(top, #e2e9f1 0%, #becde0 75%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #e2e9f1 0%,#becde0 75%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #e2e9f1 0%,#becde0 75%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e9f1', endColorstr='#becde0',GradientType=0 ); /* IE6-9 */border-color:#91a0ae;
+}
+.openclose {background:transparent url('../images/icon_openclose.png') no-repeat;}
+
+/* Main table cell colors and backgrounds */
+.row1 {background:#f4f6fb;}
+.row2, .helpline {background:#e1e9f2;}
+.row3 {background:#d7e2ef;}
+
+.spacerow{background:#cad9ea;}
+
+.tbt{display:none}
+.tbl{border-collapse:collapse;height:4px;width:100%}
+.tbll{background:url(../images/tb4_l.gif) no-repeat;width:8px}
+.tblbot{background:url(../images/tb4_m.gif) repeat-x;width:100%}
+.tblr{background:url(../images/tb4_r.gif) no-repeat;width:8px}
+
+/* This is for the table cell above the Topics,Post & Last posts on the index.php */
+.folder-cell{vertical-align:middle !important;}
+.folder-cell img{display:block;margin:0 auto;}
+
+.rowpic{
+	color:#516a88;
+	background:#ffffff url(../images/cellpic2.jpg) no-repeat right top;
+	border-color:#0850BD;
+	height:27px;
+	padding:0;
+}
+
+/* Table Header cells */
+th, .th {
+	color:#516a88;
+	background:#c6d3e4 url(../images/cellpic3.gif) repeat-x;
+	border-color:#91a0ae;
+}
+
+/* Used for the navigation text,(Page 1,2,3 etc) and the navigation bar when in a forum */
+.nav{}
+.postbody{}
+
+/* Location,number of posts,post date etc */
+.postdetails{color:#00396a}
+
+/* Quote blocks */
+.quotetitle,.quote {color:#475e61;border:1px solid #a4bad2}
+.quotetitle {background:#e1e7ec;}
+.quote {background:#fafafa;color:#cc6633;}
+
+
+/* Code blocks */
+.codetitle,.code {border:1px solid #a4bad2;}
+.codetitle {background: #d8dfe4;}
+.code {background:#fafafa;color:#555;}
+.code {color:#060}
+
+/* PHP blocks */
+.phptitle,.php {border:1px solid #a4bad2;}
+.phptitle {background: #d8dfe4;}
+.php {background:#fafafa;color:#555;}
+.php {color:#060}
+
+/* This is for the error messages that pop up */
+.errorline{background:#add8e6;border:1px solid #000000}
+
+/* Form elements */
+select{background:#ffffff;}
+input.post,textarea.post{background:#ffffff;border:1px solid #000000;}
+input.button,input.liteoption,.fakebut{border:1px solid #000000;background:#fafafa;}
+input.catbutton{border:1px solid #000000;background:#fafafa;}
+input.mainoption{border:1px solid #000000;background:#fafafa;}
+a.but,a.but:hover,a.but:visited{color:#000000;}
+
+/* This is the line in the posting page which shows the rollover
+help line. Color value in row2 */
+.helpline{}
+
+/*-- mod : profile cp --*/
+.foundercolor, a.foundercolor, a.foundercolor:link, a.foundercolor:active, a.foundercolor:visited {color: #FF0000;}
+a.foundercolor:hover {color:#FF0000;}
+
+.jadmincolor, a.jadmincolor, a.jadmincolor:link, a.jadmincolor:active, a.jadmincolor:visited {color: #129DED;}
+a.jadmincolor:hover {color:#129DED;}
+
+.admincolor, a.admincolor, a.admincolor:link, a.admincolor:active, a.admincolor:visited {color:#FFA34F;}
+a.admincolor:hover {color:#FF0000;}
+
+.modcolor, a.modcolor, a.modcolor:link, a.modcolor:active, a.modcolor:visited {color:#006600;}
+a.modcolor:hover {color:#008000;}
+
+.usercolor, a.usercolor, a.usercolor:link, a.usercolor:active, a.usercolor:visited {color:#000000;}
+a.usercolor:hover {color:#DD6900;}
+/*-- fin mod : profile cp --*/
+
+/* Admin & Moderator Colors MODification */
+.admin,a.admin,a.admin:visited{color:#ff0000}
+.mod,a.mod,a.mod:visited{color:#006600}
+a.admin:hover,a.mod:hover{color:#839fbc}
+
+.acronym{background:#FFFFCC}
+
+.alert{color:#FF3300}
+
+/* Mighty Gorgon - Full Album Pack - BEGIN */
+.forumline_left {background-color: #7A7A7A;border-color:#808080;}
+.tab_links, a.tab_links:hover, a.tab_links:link, a.tab_links:active, a.tab_links:visited {color:#FF8866;}
+.tab_links_unsel, a.tab_links_unsel:hover, a.tab_links_unsel:link, a.tab_links_unsel:active, a.tab_links_unsel:visited {color:#FFFFAA;}
+.tab_headers, th.tab_headers {color:#FF8866;border-color:#003366;background-color:#006699;}
+.tab_headers_unsel, th.tab_headers_unsel {color: #FFFFAA;border-color:#336699;background-color:#6699AA;}
+.tab_border {background-color: #888888;}
+.filler, th.filler {background-color:#6699AA;background-image:none;}
+.picframe{background-color:#FFFFFF;border:1px solid #555555;}
+.picshadow{background-color: #888888;}
+/* Mighty Gorgon - Full Album Pack - END */
+
+a.kb {background: transparent;text-shadow: 2px 2px 2px #323232;}
+a.kb span {color:#516A88;}
+
+.bx {border:1px solid #000;background-color:#FFF;}
+
+.date-today, .last-post b { color: #E61A1A;}
+.date-yesterday, .last-post em { color: #18C935;}
+
+.shadow {box-shadow: 2px 2px 2px #888888;}
+.blockshadow {border:1px solid #486386;box-shadow: 2px 2px 2px #888888;}
+
+.postbtn, .genbtn, .folder {
+	  background: #FFFFFF;
+	  background-image: -webkit-linear-gradient(top, #FFFFFF, #BDCBD6);
+	  background-image: -moz-linear-gradient(top, #FFFFFF, #BDCBD6);
+	  background-image: -ms-linear-gradient(top, #FFFFFF, #BDCBD6);
+	  background-image: -o-linear-gradient(top, #FFFFFF, #BDCBD6);
+	  background-image: linear-gradient(to bottom, #FFFFFF, #BDCBD6);
+	  border: solid #A8B9C8 1px;
+}
+.postbtn:hover, .genbtn:hover, .folder:hover {
+	  background: #E1E8EF;
+	  background-image: -webkit-linear-gradient(top, #E1E8EF, #BDCBD6);
+	  background-image: -moz-linear-gradient(top, #E1E8EF, #BDCBD6);
+	  background-image: -ms-linear-gradient(top, #E1E8EF, #BDCBD6);
+	  background-image: -o-linear-gradient(top, #E1E8EF, #BDCBD6);
+	  background-image: linear-gradient(to bottom, #E1E8EF, #BDCBD6);
+}
+a.postbtn, a.postbtn:hover, .genbtn li, .genbtn a, .folder a {color:#587DA3;}
+.genbtn li:hover, .genbtn a:hover, .folder a:hover {color:#6E9BD5;}
+
+div.bd {
+  border-left: 1px solid #FFF;
+  border-bottom: 1px solid #FFF;
+  border-top: 1px solid #FFF;
+}
+
+div.table1 {
+  background-color: #FFF;
+  border: 2px solid #006699;
+}
+
+.bdrr {
+  border-right: 2px solid #FFF !important;
+}
+
+.bdrl {
+  border-left: 2px solid #FFF !important;
+}
+
+.fa-hot {color:#FF2F0A;}
+span.folder {color:#006699;}
+span.folder:hover {color:#9FB4D1; text-decoration: none !important;}
+
+
+/* nav menu */
+.menu {
+	background: #e2e9f1; /* Old browsers */
+	background: -moz-linear-gradient(top, #e2e9f1 0%, #becde0 75%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #e2e9f1 0%,#becde0 75%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #e2e9f1 0%,#becde0 75%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e9f1', endColorstr='#becde0',GradientType=0 ); /* IE6-9 */border-color:#91a0ae;
+}
+
+.menu a {
+	color: #32475F;
+}
+
+.menu a.dropdown-arrow:after {
+	content: "\25BF";
+}
+
+.menu li a:hover {
+	color: #839FBC;
+	background: #DCE5EE;
+}
+
+.menu label:before {
+	color: #FFFFFF;
+	content: "\2261"; 
+}
+
+.menu ul.sub-menus{
+	background: #DCE5EE;
+}
+
+.menu ul.sub-menus a {
+	color: #444444;
+}
+
+.menu ul.sub-menus a:hover{
+	background: #5A5A5A;
+	color: #FFFFFF;
+}
+@media screen and (max-width: 800px){
+	.menu ul {background:#E9E9EF;}
+	.menu input:checked + label {color:#FFFFFF}
+	.menu input:checked + label:before {content:"\00d7"}
+}

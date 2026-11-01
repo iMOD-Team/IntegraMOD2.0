@@ -1,0 +1,755 @@
+<?php
+
+/***************************************************************************
+ *                            functions_qbar.php
+ *                            ------------------
+ *	begin			: 22/07/2003
+ *	copyright		: Ptirhiik
+ *	email			: admin@rpgnet-fr.com
+ *	version			: 1.0.5 - 29/10/2003
+ *
+ ***************************************************************************/
+
+/***************************************************************************
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License as published by
+ *   the Free Software Foundation; either version 2 of the License, or
+ *   (at your option) any later version.
+ *
+ ***************************************************************************/
+
+if ( !defined('IN_PHPBB') )
+{
+	die("Hacking attempt");
+}
+
+function qbar_add_order()
+{
+	global $qbar_maps, $qbar_keys;
+
+	$qbar_keys = array();
+	$qbar_order = 0;
+	$i=0;
+  foreach ($qbar_maps as $qbar_name => $qbar_data)
+	{
+		$i++;
+		$qbar_order = $qbar_order + 10;
+		if ($qbar_maps[$qbar_name]['class'] != 'System')
+		{
+			$qbar_maps[$qbar_name]['order'] = $qbar_order;
+		}
+		else
+		{
+			$qbar_maps[$qbar_name]['order'] = 99999999;
+			$qbar_order = $qbar_order - 10;
+		}
+		$qbar_keys[$i][0] = $qbar_name;
+		$qbar_maps[$qbar_name]['idx'] = $i;
+
+		$fields_order = 0;
+		$j=0;
+    foreach ($qbar_data['fields'] as $field_name => $field_data)
+		{
+			$j++;
+			$fields_order = $fields_order + 10;
+			$qbar_maps[$qbar_name]['fields'][$field_name]['order'] = $fields_order;
+			$qbar_keys[$i][$j] = $field_name;
+			$qbar_maps[$qbar_name]['fields'][$field_name]['idx'] = $j;
+		}
+	}
+}
+
+// get tree
+function qbar_set_tree_user_auth($cur='Root')
+{
+	global $board_config, $userdata, $lang;
+	global $tree;
+
+	$q_this = isset($tree['keys'][$cur]) ? $tree['keys'][$cur] : -1;
+
+	// auth
+	$res = array();
+	$res['auth_view'] = false;
+
+	// get the info from forums
+	if ( ($q_this > -1) && $tree['auth'][$cur]['auth_view'] )
+	{
+		$res['auth_view'] = $tree['auth'][$cur]['auth_view'];
+	}
+
+	// read sub-levels
+	$count = ((($__imc0 = $tree['sub'][$cur]) instanceof Countable || is_array($__imc0)) ? count($__imc0) : 0);
+	for ($i=0; $i < $count; $i++)
+	{
+		// climb up the tree
+		$res_sub = array();
+		$res_sub = qbar_set_tree_user_auth($tree['sub'][$cur][$i]);
+
+		// get the auth
+		$res['auth_view'] = $res['auth_view'] || $res_sub['auth_view'];
+	}
+
+	// overide the level
+	$tree['auth'][$cur]['tree.auth_view'] = $res['auth_view'];
+
+	return $res;
+}
+
+function qbar_get_tree()
+{
+	global $db, $userdata;
+	global $tree;
+
+	if (!empty($tree)) return;
+
+	// is categories hierarchy v 2 installed ?
+	$cat_hierarchy = function_exists('get_auth_keys');
+
+	// fill the tree
+	if (!$cat_hierarchy)
+	{
+		$tree = array();
+
+		// cats
+		$sql = "SELECT * FROM " . CATEGORIES_TABLE . " ORDER BY cat_order, cat_title";
+		if (!$result = $db->sql_query($sql)) message_die(GENERAL_ERROR, "Could not get categories informations !", "", __LINE__, __FILE__, $sql);
+		while ($row = $db->sql_fetchrow($result))
+		{
+			if ( !isset($row['cat_main']) ) $row['cat_main'] = 0;
+			if ( $row['cat_main'] == $row['cat_id'] ) $row['cat_main'] = 0;
+			$tree['keys'][ POST_CAT_URL . $row['cat_id'] ] = ((($__imc1 = $tree['data']) instanceof Countable || is_array($__imc1)) ? count($__imc1) : 0);
+			$tree['type'][] = POST_CAT_URL;
+			$tree['id'][]	= $row['cat_id'];
+			$tree['data'][] = $row;
+			$main = ($row['cat_main']==0) ? 'Root' : POST_CAT_URL . $row['cat_main'];
+			$tree['main'][] = $main;
+			$tree['sub'][$main][] = POST_CAT_URL . $row['cat_id'];
+		}
+
+		// forums
+		$sql = "SELECT * FROM " . FORUMS_TABLE . " ORDER BY forum_order, forum_name";
+		if (!$result = $db->sql_query($sql)) message_die(GENERAL_ERROR, "Could not get forums informations !", "", __LINE__, __FILE__, $sql);
+		while ($row = $db->sql_fetchrow($result)) 
+		{
+			$q_this = ((($__imc2 = $tree['data']) instanceof Countable || is_array($__imc2)) ? count($__imc2) : 0);
+			$tree['keys'][ POST_FORUM_URL . $row['forum_id'] ] = $q_this;
+			$tree['type'][] = POST_FORUM_URL;
+			$tree['id'][]	= $row['forum_id'];
+			$tree['data'][] = $row;
+			$main = POST_CAT_URL . $row['cat_id'];
+			$tree['main'][] = $main;
+			$tree['sub'][$main][] = POST_FORUM_URL . $row['forum_id'];
+		}
+
+		$tree['auth'] = array();
+		$wauth = auth(AUTH_ALL, AUTH_LIST_ALL, $userdata);
+		if (!empty($wauth))
+		{
+      foreach ($wauth as $key => $data)
+			{
+				$tree['auth'][POST_FORUM_URL . $key] = $data;
+			}
+		}
+
+		// enhanced each level
+		qbar_set_tree_user_auth();
+	}
+}
+
+// init cats and forums
+function qbar_init_tree_list($cur='Root', $level = 0)
+{
+	global $qbar_maps, $phpEx;
+	global $tree;
+
+	if ($cur == 'Root')
+	{
+		qbar_get_tree();
+	}
+
+	// add the level
+	if ($cur == 'Root')
+	{
+		$name	= 'Forum_index';
+		$title	= 'Forum_index_explain';
+//		$icon	= 'menu_forums';
+		$url	= 'index.' . $phpEx;
+	}
+	else if ($tree['type'][ $tree['keys'][$cur] ] == POST_CAT_URL)
+	{
+		$name	= $tree['data'][ $tree['keys'][$cur] ]['cat_title'];
+		$title	= $tree['data'][ $tree['keys'][$cur] ]['cat_desc'];
+//		$icon	= 'menu_forums';
+		$url	= 'index.' . $phpEx . '?' . POST_CAT_URL . '=' . $tree['id'][ $tree['keys'][$cur] ];
+	}
+	else if ($tree['type'][ $tree['keys'][$cur] ] == POST_FORUM_URL)
+	{
+		$name	= $tree['data'][ $tree['keys'][$cur] ]['forum_name'];
+		$title	= $tree['data'][ $tree['keys'][$cur] ]['forum_desc'];
+//		$icon	= 'menu_forums';
+		$url	= 'viewforum.' . $phpEx . '?' . POST_FORUM_URL . '=' . $tree['id'][ $tree['keys'][$cur] ];
+	}
+	else
+	{
+		$name	= $cur;
+		$title	= 'Unknown';
+//		$icon	= 'menu_faq';
+		$url	= 'index.' . $phpEx;
+	}
+
+	// init the row
+	$row = array();
+	$row['shortcut']		= $name;
+	$row['explain']			= $title;
+	$row['icon']			= isset($icon) ? $icon : '';
+	$row['use_value']		= true;
+	$row['use_icon']		= true;
+	$row['url']				= $url;
+	$row['internal']		= true;
+	$row['window']			= false;
+	$row['auth_logged']		= 0;
+	$row['auth_admin']		= 0;
+	$row['auth_pm']			= 0;
+	$row['tree_id']			= $cur;
+	$row['level']			= $level;
+
+	// store in definition
+	$qbar_maps['default_tree']['fields'][$cur] = $row;
+
+	// get the sub-levels
+	$tree_count = isset($tree['sub'][$cur]) ? ((($__imc3 = $tree['sub'][$cur]) instanceof Countable || is_array($__imc3)) ? count($__imc3) : 0) : 0;
+	for ($i=0; $i < $tree_count; $i++)
+	{
+		qbar_init_tree_list( $tree['sub'][$cur][$i], ($level+1) );
+	}
+}
+
+// read the qbars and enhance them with order
+function qbar_read()
+{
+	global $phpbb_root_path, $phpEx;
+	global $qbar_maps;
+	
+	$qbar_maps = array();
+	include($phpbb_root_path . './includes/def_qbar.' . $phpEx);
+	qbar_init_tree_list();
+	qbar_add_order();
+}
+
+// get nav description
+function qbar_get_nav_desc($import=false)
+{
+	global $lang, $phpEx, $nav_separator;
+	global $panel_id, $field_id, $qbar_maps, $qbar_keys;
+	
+	// nav separator
+	if (empty($nav_separator)) $nav_separator = '&nbsp;->&nbsp;';
+
+	// nav desc
+	if ($import)
+	{
+		$s_nav_desc = '<input type="submit" name="goto[0]" class="liteoption" value="' . $lang['Qbar_admin'] . '" />';
+	}
+	else
+	{
+		$s_nav_desc = '<a href="' . append_sid("admin_qbar.$phpEx") . '" class="nav">' . $lang['Qbar_admin'] . '</a>';
+	}
+
+	$qname = '';
+	if (!empty($panel_id))
+	{
+		// find the panel
+		$qname = $qbar_keys[$panel_id][0];
+		if (!empty($qname))
+		{
+			if ($import)
+			{
+				$s_nav_desc .= $nav_separator . '<input type="submit" name="goto[' . $panel_id . ']" class="liteoption" value="' . $qname . '" />';
+			}
+			else
+			{
+				$s_nav_desc .= $nav_separator . '<a href="' . append_sid("admin_qbar.$phpEx?panel=$panel_id") . '" class="nav">' . $qname . '</a>';
+			}
+		}
+	}
+	return $s_nav_desc;
+}
+
+
+function qbar_display_qbars($display=false)
+{
+	global $userdata, $lang, $images, $phpEx, $template, $db, $board_config;
+	global $sub_template_key_image, $sub_templates, $theme;
+	global $tree, $qbar_maps, $lofi;
+
+	// get the tpl for displaying
+	/*$template->set_filenames(array(
+		'_qbars' => 'qbar_qbars.tpl')
+	);*/
+
+	if (!$display) return;
+	qbar_read();
+
+	// get number of messages
+	$new_pms = intval($userdata['user_new_privmsg']);
+	$unread_pms = intval($userdata['user_unread_privmsg']);
+
+	// is categories hierarchy v 2 installed ?
+	$cat_hierarchy = function_exists('get_auth_keys');
+
+	// get the style used
+	$style = $theme['themes_id'];
+
+	// read the qbar to display
+	$qbars = array();
+	$qmenu = array();
+	$qnav = array();
+	$qnav2 = array();
+	$qlist = array();
+  foreach ($qbar_maps as $qname => $qdata)
+	{
+		$ok = ($qdata['display'] && ($qdata['class'] != 'System'));
+
+		// check the main template
+		if ($ok && !empty($qdata['style']) && ($qdata['style'] != $style))
+		{
+			$ok = false;
+		}
+		// no sub-template selected, but one in use
+		if ( $ok && !empty($qdata['style']) && empty($qdata['sub_template']) && !empty($sub_templates[$sub_template_key_image]['name']) )
+		{
+			$ok = false;
+		}
+		// sub-template selected, and not all sub-template for the qbar
+		if ($ok && !empty($qdata['style']) && !empty($qdata['sub_template']) && ($qdata['sub_template'] != '*ALL') && ($qdata['sub_template'] != $sub_templates[$sub_template_key_image]['name']))
+		{
+			$ok = false;
+		}
+		if ($ok)
+		{
+			// get the options
+			$options = array();
+      foreach ($qdata['fields'] as $fname => $fdata)
+			{
+				$ok = true;
+
+				// check if logged
+				if (isset($fdata['auth_logged']) && ($fdata['auth_logged'] == 1) && ($userdata['user_id'] == ANONYMOUS)) 
+				{
+					$ok = false;
+				}
+				if (isset($fdata['auth_logged']) && ($fdata['auth_logged'] == 2) && ($userdata['user_id'] != ANONYMOUS)) 
+				{
+					$ok = false;
+				}
+
+				// check if admin
+				if (isset($fdata['auth_admin']) && ($fdata['auth_admin'] == 1) && ($userdata['user_level'] != ADMIN))
+				{
+					$ok = false;
+				}
+				if (isset($fdata['auth_admin']) && ($fdata['auth_admin'] == 2) && ($userdata['user_level'] == ADMIN))
+				{
+					$ok = false;
+				}
+
+				// check auth tree forum
+				if (!empty($fdata['tree_id']) && $ok)
+				{
+					if (!$cat_hierarchy)
+					{
+						qbar_get_tree();
+					}
+					$ok = $tree['auth'][$fdata['tree_id']]['tree.auth_view'];
+				}
+
+				if (!empty($fdata['php_function']) && $ok)
+				{
+					$ok = function_exists($fdata['php_function']);
+				}
+
+				// check private messaging
+				if (isset($fdata['auth_pm']) && ($fdata['auth_pm'] == 1) && ($new_pms <= 0))
+				{
+					$ok = false;
+				}
+				if (isset($fdata['auth_pm']) && ($fdata['auth_pm'] == 2) && ($unread_pms <= 0))
+				{
+					$ok = false;
+				}
+				if (isset($fdata['auth_pm']) && ($fdata['auth_pm'] == 2) && ($unread_pms > 0) && ($new_pms > 0))
+				{
+					$ok = false;
+				}
+				if (isset($fdata['auth_pm']) && ($fdata['auth_pm'] == 3) && (($new_pms > 0) || ($unread_pms > 0)))
+				{
+					$ok = false;
+				}
+
+				// all check
+				if ($ok)
+				{
+					// shortcut
+					$shortcut = isset($lang[ $fdata['shortcut'] ]) ? $lang[ $fdata['shortcut'] ] : $fdata['shortcut'];
+					if ($fdata['shortcut'] == 'Logout')
+					{
+						$shortcut .= ' [ ' . $userdata['username'] . ' ]';
+					}
+
+					// alternate
+					if (isset($fdata['auth_pm']) && $fdata['auth_pm'] == 1)
+					{
+						if ($new_pms > 1)
+						{
+							$shortcut = isset($lang[ $fdata['alternate'] ]) ? $lang[ $fdata['alternate'] ] : $fdata['alternate'];
+						}
+						$shortcut = sprintf($shortcut, $new_pms);
+					}
+					if (isset($fdata['auth_pm']) && $fdata['auth_pm'] == 2)
+					{
+						if ($unread_pms > 1)
+						{
+							$shortcut = isset($lang[ $fdata['alternate'] ]) ? $lang[ $fdata['alternate'] ] : $fdata['alternate'];
+						}
+						$shortcut = sprintf($shortcut, $unread_pms);
+					}
+
+					// mouseover
+					$explain = !empty($fdata['explain']) ? $fdata['explain'] : '';
+					$mouseover = isset($lang[ $explain ]) ? $lang[ $explain ] : $explain;
+
+					// link
+					$url = $fdata['url'];
+					if (!empty($fdata['internal']))
+					{
+						$part = explode( '?', $url);
+						$url .= ((((($__imc4 = $part) instanceof Countable || is_array($__imc4)) ? count($__imc4) : 0) > 1) ? '&' : '?') . 'sid=' . $userdata['session_id'];
+						$url = append_sid($url);
+					}
+
+					// icon
+					$icon = !empty($fdata['icon']) ? $fdata['icon'] : '';
+					$icon = (isset($images[$icon])) ? $images[$icon] : $icon;
+
+					// store the option
+					$options['icon'][]			= !empty($fdata['use_icon']) ? $icon : '';
+					$options['shortcut'][]		= !empty($fdata['use_value']) ? $shortcut : '';
+					$options['mouseover'][]		= $mouseover;
+					$options['url'][]			= $url;
+					$options['window'][]		= !empty($fdata['window']);
+					$options['php_function'][]	= !empty($fdata['php_function']) ? $fdata['php_function'] : '';
+				}
+			}
+
+			// affect to the good place
+			if (((($__imc5 = $options['url']) instanceof Countable || is_array($__imc5)) ? count($__imc5) : 0) > 0)
+			{
+				switch ($qdata['class'])
+				{
+					case 'Bar':
+						$qbars['fields'][]			= $options;
+						$qbars['in_table'][]		= $qdata['in_table'];
+						$qbars['style'][]			= $qdata['style'];
+						$qbars['sub_template'][]	= $qdata['sub_template'];
+						$qbars['cells'][]			= $qdata['cells'];
+						break;
+					case 'Menu':
+						$qmenu['fields'][]			= $options;
+						$qmenu['in_table'][]		= $qdata['in_table'];
+						$qmenu['style'][]			= $qdata['style'];
+						$qmenu['sub_template'][]	= $qdata['sub_template'];
+						$qmenu['cells'][]			= $qdata['cells'];
+						break;
+					case 'Nav':
+						$qnav['fields'][]			= $options;
+						$qnav['in_table'][]		    = $qdata['in_table'];
+						$qnav['style'][]			= $qdata['style'];
+						$qnav['sub_template'][] 	= $qdata['sub_template'];
+						$qnav['cells'][]			= $qdata['cells'];
+						break;
+					case 'Nav2':
+						$qnav2['fields'][]			= $options;
+						$qnav2['in_table'][]		= $qdata['in_table'];
+						$qnav2['style'][]			= $qdata['style'];
+						$qnav2['sub_template'][] 	= $qdata['sub_template'];
+						$qnav2['cells'][]			= $qdata['cells'];
+						break;
+					case 'List':
+						$qlist['fields'][]			= $options;
+						$qlist['in_table'][]		    = $qdata['in_table'];
+						$qlist['style'][]			= $qdata['style'];
+						$qlist['sub_template'][] 	= $qdata['sub_template'];
+						$qlist['cells'][]			= $qdata['cells'];
+						break;
+				}
+			}
+		}
+	}
+
+	// send qbars, then qmenus
+	for ($obj = 0; $obj < 4; $obj++)
+	{
+		if ($obj == 0)
+		{
+			$obj_count = !empty($qbars['fields']) ? ((($__imc6 = $qbars['fields']) instanceof Countable || is_array($__imc6)) ? count($__imc6) : 0) : 0;
+			if($obj_count){
+				$template->set_filenames(array(
+					'_qbars' => 'qbar_qbars.tpl')
+				);
+			}				
+		}
+		// the init of qbars tpl has already been done
+		if ($obj == 1)
+		{
+			// display the qmenus
+			$obj_count = ((($__imc7 = $qmenu['fields']) instanceof Countable || is_array($__imc7)) ? count($__imc7) : 0);
+			if($obj_count){
+			$template->set_filenames(array(
+				'_qmenus' => 'qbar_qmenus.tpl')
+			);
+			}
+		}elseif ($obj == 2)
+		{
+			// display the qnavs
+			$obj_count = ((($__imc8 = $qnav['fields']) instanceof Countable || is_array($__imc8)) ? count($__imc8) : 0);
+			if($obj_count){
+			$template->set_filenames(array(
+				'_qnavs' => 'qbar_qnavs.tpl')
+			);
+			}				
+		}elseif ($obj == 3)
+		{
+			// display the second qnavs
+			$obj_count = ((($__imc9 = $qnav2['fields']) instanceof Countable || is_array($__imc9)) ? count($__imc9) : 0);
+			if($obj_count){
+			$template->set_filenames(array(
+				'_qnavs2' => 'qbar_qnavs2.tpl')
+			);
+			}
+		}elseif ($obj == 4)
+		{ 
+			// display the qlist
+			$obj_count = ((($__imc10 = $qlist['fields']) instanceof Countable || is_array($__imc10)) ? count($__imc10) : 0);
+			if($obj_count){
+				$template->set_filenames(array(
+					'_qlist' => 'qbar_qlist.tpl')
+				);
+			}
+		}
+		// display the object
+		for ($i=0; $i < $obj_count; $i++)
+		{
+			if ($obj == 0)
+			{
+				// prepare the options array for this qbar
+				$fields			= $qbars['fields'][$i];
+				$in_table		= $qbars['in_table'][$i];
+				$style			= $qbars['style'][$i];
+				$sub_template	= $qbars['sub_template'][$i];
+				$cells			= $qbars['cells'][$i];
+				$class			= 'nav';
+			}
+			elseif ($obj == 1)
+			{
+				$fields			= $qmenu['fields'][$i];
+				$in_table		= $qmenu['in_table'][$i];
+				$style			= $qmenu['style'][$i];
+				$sub_template	= $qmenu['sub_template'][$i];
+				$cells			= $qmenu['cells'][$i];
+				$class			= 'mainmenu';
+			}
+			elseif ($obj == 2)
+			{
+				$fields			= $qnav['fields'][$i];
+				$in_table		= $qnav['in_table'][$i];
+				$style			= $qnav['style'][$i];
+				$sub_template	= $qnav['sub_template'][$i];
+				$cells			= $qnav['cells'][$i];
+				$class			= 'navmenu';
+			}
+			elseif ($obj == 3)
+			{
+				$fields			= $qnav2['fields'][$i];
+				$in_table		= $qnav2['in_table'][$i];
+				$style			= $qnav2['style'][$i];
+				$sub_template	= $qnav2['sub_template'][$i];
+				$cells			= $qnav2['cells'][$i];
+				$class			= 'nav2';
+			}
+			else
+			{
+				$fields			= $qlist['fields'][$i];
+				$in_table		= $qlist['in_table'][$i];
+				$style			= $qlist['style'][$i];
+				$sub_template	= $qlist['sub_template'][$i];
+				$cells			= $qlist['cells'][$i];
+				$class			= 'listmenu';
+			}
+			$options = array();
+
+			// process one qbar/qmenu
+			for ($j=0; $j < ((($__imc11 = $fields['url']) instanceof Countable || is_array($__imc11)) ? count($__imc11) : 0); $j++)
+			{
+				// link
+				if ($fields['window'][$j])
+				{
+					$wres = '<a target="_blank" href="' . urldecode($fields['url'][$j]) . '" title="' . $fields['mouseover'][$j] . '" class="' . $class . '">%s</a>';
+				}
+				else
+				{
+					$wres = '<a href="' . urldecode($fields['url'][$j]) . '" title="' . $fields['mouseover'][$j] . '" class="' . $class . '">%s</a>';
+				}
+
+				// icon
+				$icon = '';
+				if (!empty($fields['icon'][$j]) && $lofi == 0)
+				{
+					$icon	= '<img src="' . $fields['icon'][$j] . '" alt="' . $fields['mouseover'][$j] . '" align="absbottom" border="0"' . (empty($fields['shortcut'][$j]) ? '' : ' hspace="5"') . ' />';
+				}
+
+				// icon & shortcut
+				$wres = sprintf($wres, $icon . $fields['shortcut'][$j]);
+
+				// add to options
+				if (!empty($fields['php_function'][$j]))
+				{
+					$wres = call_user_func($fields['php_function'][$j], array(
+						'url' => $fields['url'][$j],
+						'icon' => $fields['icon'][$j],
+						'shortcut' => $fields['shortcut'][$j],
+						'mouseover' => $fields['mouseover'][$j],
+						'window' => $fields['window'][$j],
+						'wres' => $wres,
+					));
+				}
+
+
+				if (!empty(trim($wres)))
+				{
+					$options[] = $wres;
+				}
+			}
+
+			// send it to template
+			$align = '';
+			if (((($__imc12 = $options) instanceof Countable || is_array($__imc12)) ? count($__imc12) : 0) > 0)
+			{
+				if ($obj == 0)
+				{
+					$obj_root = '_qbar';
+//					$align = 'left';
+				}
+				elseif ($obj == 1)
+				{
+					$obj_root = '_qmenu';
+//					$align = 'center';
+				}
+				elseif ($obj == 2)
+				{
+					$obj_root = '_qnav';
+//					$align = 'left';
+				}
+				elseif ($obj == 3)
+				{
+					$obj_root = '_qnav2';
+//					$align = 'left';
+				}
+				else
+				{
+					$obj_root = '_qlist';
+//					$align = 'center';
+				}
+				if ($cells == 0) $cells = 1;
+				if ($cells > ((($__imc13 = $options) instanceof Countable || is_array($__imc13)) ? count($__imc13) : 0)) $cells = ((($__imc14 = $options) instanceof Countable || is_array($__imc14)) ? count($__imc14) : 0);
+				$width = ceil(100 / $cells);
+				$align = ($in_table) ? 'center' : $align;
+				$template->assign_block_vars($obj_root, array(
+					'WIDTH'	=> $width
+//					'ALIGN'	=> $align,
+					)
+				);
+				$pointer = -1;
+				for ($j = 0; $j < ((($__imc15 = $options) instanceof Countable || is_array($__imc15)) ? count($__imc15) : 0); $j++)
+				{
+                    $inc = ($obj == 1) ? (isset($images['menu_delimeter']) ? $images['menu_delimeter'] : '') : '';
+					$pointer++;
+					if ((($pointer % $cells) == 0) || ($in_table))
+					{
+						if (($pointer % $cells) == 0)
+						{
+							$template->assign_block_vars($obj_root . '.line', array());
+						}
+						$template->assign_block_vars($obj_root . '.line.cell', array());
+						if (!$in_table)
+						{
+							$inc = '';
+						}
+					}
+					$template->assign_block_vars($obj_root . '.line.cell.field', array(
+						'OPTION' => $inc . $options[$j] . ($in_table ? $inc : ''),
+						)
+					);
+					if ($in_table)
+					{
+						$template->assign_block_vars($obj_root . '.line.cell.field.in_table', array());
+						if ($j == 0)
+						{
+							// number of cells to add to the first line
+							$n = $cells-((((($__imc16 = $options) instanceof Countable || is_array($__imc16)) ? count($__imc16) : 0)-1) % $cells)+1;
+						}
+						if ($pointer == ($cells-$n+1))
+						{
+							// add clear tab
+							for ($k=1; $k < ($n-1); $k++)
+							{
+								$pointer++;
+								$template->assign_block_vars($obj_root . '.line.cell', array());
+								$template->assign_block_vars($obj_root . '.line.cell.field', array());
+							}
+						}
+					} // end if in table
+				} // end read options
+			} // if options
+		} // object
+
+		// send it to main template
+		if ($obj == 0)
+		{
+			if (!empty($qbars['fields']) && ((($__imc17 = $qbars['fields']) instanceof Countable || is_array($__imc17)) ? count($__imc17) : 0) > 0)
+			{
+				$template->assign_var_from_handle('QBARS', '_qbars');
+			}
+		}
+		elseif ($obj == 1)
+		{
+			if (((($__imc18 = $qmenu['fields']) instanceof Countable || is_array($__imc18)) ? count($__imc18) : 0) > 0)
+			{
+				$template->assign_var_from_handle('QMENUS', '_qmenus');
+			}
+		}
+		elseif ($obj == 2)
+		{
+			if (((($__imc19 = $qnav['fields']) instanceof Countable || is_array($__imc19)) ? count($__imc19) : 0) > 0)
+			{
+				$template->assign_var_from_handle('QNAVS', '_qnavs');
+			}
+		}
+		elseif ($obj == 3)
+		{
+			if (((($__imc20 = $qnav2['fields']) instanceof Countable || is_array($__imc20)) ? count($__imc20) : 0) > 0)
+			{
+				$template->assign_var_from_handle('QNAVS2', '_qnavs2');
+			}
+		}
+		else
+		{
+			if (((($__imc21 = $qlist['fields']) instanceof Countable || is_array($__imc21)) ? count($__imc21) : 0) > 0)
+			{
+				$template->assign_var_from_handle('QLIST', '_qlist');
+			}
+		}
+	} // end for $obj
+}
+
+?>
