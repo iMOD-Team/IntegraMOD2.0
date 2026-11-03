@@ -13,7 +13,7 @@
 <!-- END no_layout_collapse -->
 
 <!-- The td cell that closes when the collapse column button is clicked -->
-<td id="header_block" valign="top" style="display: ''; width:{HEADER_WIDTH}">
+<td id="header_block" valign="top" style="display: ''; width:{HEADER_WIDTH}px">
 	<table cellpadding="0" cellspacing="0" border="0">
 		<tr>
 			<td valign="top">

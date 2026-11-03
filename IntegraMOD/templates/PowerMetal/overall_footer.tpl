@@ -16,7 +16,7 @@
 <table width="98%" border="0" cellpadding="0" cellspacing="0">
 <tr>
 <td align="right"><a href="#top"><div class="ftr_right"><img src="images/spacer.gif" height="39" width="39" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
-<td width="100%" valign="middle" background="templates/PowerMetal/images/nav_BM.gif">{QMENUS}</td>
+<td width="100%" valign="middle" background="templates/PowerMetal/images/nav_BM.gif"><nav class="menu menu-up"><ul>{QMENUS}</ul></nav></td>
 <td align="left"><a href="#top"><div class="ftr_left"><img src="images/spacer.gif" height="39" width="39" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
 </tr>
 </table>

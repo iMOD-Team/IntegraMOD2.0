@@ -418,6 +418,83 @@ li.pcpvt {display: inline-block;vertical-align: bottom;}
 	}
 }
 
+/* qbar reports dropdown. Transparent so the metal nav image still shows. */
+.menu {
+	background: transparent;
+	height: auto;
+	width: 100%;
+	position: relative;
+}
+.menu ul, .menu li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.menu > ul {
+	width: 100%;
+	text-align: center;
+	white-space: nowrap;
+}
+.menu li {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+}
+.menu a {
+	display: inline-block;
+	line-height: 39px;
+	padding: 0 8px;
+	text-decoration: none;
+	font-size: 11px;
+	font-weight: bold;
+	color: #CACACA;
+}
+.menu li a:hover {
+	color: #F0F0F0;
+}
+.menu ul.sub-menus {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 99;
+	width: 180px;
+	height: auto;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	white-space: normal;
+	background: #2C2C2C;
+	border: 1px solid #696969;
+}
+.menu ul.sub-menus li {
+	display: block;
+	width: 100%;
+	text-align: left;
+}
+.menu ul.sub-menus a {
+	display: block;
+	line-height: 22px;
+	padding: 2px 10px;
+	font-size: 11px;
+	font-weight: normal;
+	color: #CACACA;
+	white-space: nowrap;
+}
+.menu ul.sub-menus a:hover {
+	background: #4E0000;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.menu li:hover > ul.sub-menus {
+	display: block;
+}
+.menu.menu-up ul.sub-menus {
+	top: auto;
+	bottom: 100%;
+}
+
 @media only screen and (max-width: 400px) {
 	.author, .lastpost {display: none;}
 }

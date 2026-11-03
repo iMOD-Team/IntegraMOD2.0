@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html dir="{S_CONTENT_DIRECTION}">
 
 <head>
@@ -268,7 +268,7 @@ function preloadImages() {
 <table width="98%" border="0" cellpadding="0" cellspacing="0">
 <tr>
 <td align="right"><a href="#bot"><div class="hdr_right"><img src="images/spacer.gif" height="39" width="39" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
-<td width="100%" valign="middle" background="templates/PowerMetal/images/nav_M.gif">{QMENUS}</td>
+<td width="100%" valign="middle" background="templates/PowerMetal/images/nav_M.gif"><nav class="menu"><ul>{QMENUS}</ul></nav></td>
 <td align="left"><a href="#bot"><div class="hdr_left"><img src="images/spacer.gif" height="39" width="39" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
 </tr>
 </table>
