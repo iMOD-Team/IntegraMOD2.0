@@ -118,19 +118,19 @@
 <!-- BEGIN table_mainrow --></td></tr><tr><td style="font-weight: bold; text-align: center;"><!-- END table_mainrow -->
 <!-- BEGIN table_mainrow_color --></td></tr><tr bgcolor="{TABMRCOLOR}"><td bgcolor="{TABMRCOLOR}" style="font-weight: bold; text-align: center;"><!-- END table_mainrow_color -->
 <!-- BEGIN table_mainrow_size --></td></tr><tr style="font-size: {TABMRSIZE}px;"><td style="font-size: {TABMRSIZE}px; font-weight: bold; text-align: center;"><!-- END table_mainrow_size -->
-<!-- BEGIN table_mainrow_cs --></td></tr><tr bgcolor="{TABMRCSCOLOR}" style="font-size: {TABMRCSSIZE}"><td bgcolor="{TABMRCSCOLOR}" style="font-size: {TABMRSIZE}px; font-weight: bold; text-align: center;"><!-- END table_mainrow_cs -->
+<!-- BEGIN table_mainrow_cs --></td></tr><tr bgcolor="{TABMRCSCOLOR}" style="font-size: {TABMRCSSIZE}px"><td bgcolor="{TABMRCSCOLOR}" style="font-size: {TABMRSIZE}px; font-weight: bold; text-align: center;"><!-- END table_mainrow_cs -->
 <!-- BEGIN table_maincol --></td><td style="font-weight: bold; text-align: center;"><!-- END table_maincol -->
 <!-- BEGIN table_maincol_color --></td><td bgcolor="{TABMCCOLOR}" style="font-weight: bold; text-align: center;"><!-- END table_maincol_color -->
 <!-- BEGIN table_maincol_size --></td><td style="font-size: {TABMCSIZE}px; font-weight: bold; text-align: center;"><!-- END table_maincol_size -->
 <!-- BEGIN table_maincol_cs --></td><td bgcolor="{TABMCCSCOLOR}" style="font-size: {TABMCCSSIZE}px; font-weight: bold; text-align: center;"><!-- END table_maincol_cs -->
 <!-- BEGIN table_row --></td></tr><tr><td><!-- END table_row -->
 <!-- BEGIN table_row_color --></td></tr><tr bgcolor="{TABRCOLOR}"><td bgcolor="{TABRCOLOR}"><!-- END table_row_color -->
-<!-- BEGIN table_row_size --></td></tr><tr style="font-size: {TABRSIZE}"><td style="font-size: {TABRCSSIZE}"><!-- END table_row_size -->
-<!-- BEGIN table_row_cs --></td></tr><tr bgcolor="{TABRCSCOLOR}" style="font-size: {TABRCSSIZE}"><td bgcolor="{TABRCSCOLOR}" style="font-size: {TABRCSSIZE}"><!-- END table_row_cs -->
+<!-- BEGIN table_row_size --></td></tr><tr style="font-size: {TABRSIZE}px"><td style="font-size: {TABRCSSIZE}px"><!-- END table_row_size -->
+<!-- BEGIN table_row_cs --></td></tr><tr bgcolor="{TABRCSCOLOR}" style="font-size: {TABRCSSIZE}px"><td bgcolor="{TABRCSCOLOR}" style="font-size: {TABRCSSIZE}px"><!-- END table_row_cs -->
 <!-- BEGIN table_col --></td><td><!-- END table_col -->
 <!-- BEGIN table_col_color --></td><td bgcolor="{TABCCOLOR}"><!-- END table_col_color -->
-<!-- BEGIN table_col_size --></td><td style="font-size: {TABCSIZE}"><!-- END table_col_size -->
-<!-- BEGIN table_col_cs --></td><td bgcolor="{TABCCSCOLOR}" style="font-size: {TABCCSSIZE}"><!-- END table_col_cs -->
+<!-- BEGIN table_col_size --></td><td style="font-size: {TABCSIZE}px"><!-- END table_col_size -->
+<!-- BEGIN table_col_cs --></td><td bgcolor="{TABCCSCOLOR}" style="font-size: {TABCCSSIZE}px"><!-- END table_col_cs -->
 
 <!-- BEGIN fullalbumimg --><a href="album_showpage.php?pic_id={IMG_NUM}" target="_blank" class="postlink"><img src="album_picm.php?pic_id={IMG_NUM}" alt="Image {IMG_NUM}" title="Image {IMG_NUM}" border="0" /></a><!-- END fullalbumimg -->
 <!-- BEGIN albumimg --><a href="album_showpage.php?pic_id={IMG_NUM}" target="_blank" class="postlink"><img src="album_thumbnail.php?pic_id={IMG_NUM}" alt="Image {IMG_NUM}" title="Image {IMG_NUM}" border="0" /></a><!-- END albumimg -->

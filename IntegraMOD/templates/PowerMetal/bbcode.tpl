@@ -7,47 +7,47 @@
 <!-- BEGIN listitem --><li><!-- END listitem -->
 
 <!-- BEGIN quote_username_post_open -->
-<script type="text/javascript" src="templates/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
+<script src="templates/assets/js/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
 <tr>
 <td><div class="quotetitle">{USERNAME} {L_WROTE} ({U_VIEW_POST}): &#8250; 
-<script type="text/javascript">docWrite("quote")</script>
+<script>docWrite("quote")</script>
 <!-- END quote_username_post_open -->
 <!-- BEGIN quote_post_open -->
-<script type="text/javascript" src="templates/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
+<script src="templates/assets/js/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
 <tr>
 <td><div class="quotetitle">{L_QUOTE} ({U_VIEW_POST}): &#8250; 
-<script type="text/javascript">docWrite("quote")</script>
+<script>docWrite("quote")</script>
 <!-- END quote_post_open -->
 <!-- BEGIN quote_username_open -->
-<script type="text/javascript" src="templates/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
+<script src="templates/assets/js/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
 <tr>
 <td><div class="quotetitle">{USERNAME} {L_WROTE}: &#8250; 
-<script type="text/javascript">docWrite("quote")</script>
+<script>docWrite("quote")</script>
 <!-- END quote_username_open -->
 <!-- BEGIN quote_open -->
-<script type="text/javascript" src="templates/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
+<script src="templates/assets/js/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
 <tr>
 <td><div class="quotetitle">{L_QUOTE}: &#8250; 
-<script type="text/javascript">docWrite("quote")</script>
+<script>docWrite("quote")</script>
 <!-- END quote_open -->
 <!-- BEGIN quote_close -->
 </div></td></tr></table>
 <!-- END quote_close -->
 
-<!-- BEGIN php_open --><script type="text/javascript" src="templates/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
+<!-- BEGIN php_open --><script src="templates/assets/js/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
 <tr>
 <td><div class="phptitle">{L_PHP}: &#8250; 
-<script type="text/javascript">docWrite("php")</script>
+<script>docWrite("php")</script>
 <!-- END php_open -->
 <!-- BEGIN php_close -->
 </div></td></tr></table>
 <!-- END php_close -->
 
 
-<!-- BEGIN code_open --><script type="text/javascript" src="templates/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
+<!-- BEGIN code_open --><script src="templates/assets/js/fi_divexpand.js"></script><table width="95%" cellspacing="1" cellpadding="3" border="0" align="center">
 <tr>
 <td><div class="codetitle">{L_CODE}: &#8250; 
-<script type="text/javascript">docWrite("code")</script>
+<script>docWrite("code")</script>
 <!-- END code_open -->
 <!-- BEGIN code_close -->
 </div></td></tr></table>
@@ -83,6 +83,7 @@
 <!-- BEGIN imgrel --><img src="{URL}" border="0" /><!-- END imgrel -->
 <!-- BEGIN left --><img src="{URL}" border="0" align="left" /><!-- END left -->
 <!-- BEGIN right --><img src="{URL}" border="0" align="right" /><!-- END right -->
+<!-- BEGIN center --><img src="{URL}" border="0" align="center" /><!-- END center -->
 <!-- BEGIN themeleft --><img src="{URL}" border="0" align="left" /><!-- END themeleft -->
 <!-- BEGIN themeright --><img src="{URL}" border="0" align="right" /><!-- END themeright -->
 <!-- BEGIN relleft --><img src="{URL}" border="0" align="left" /><!-- END relleft -->
@@ -91,10 +92,8 @@
 <!-- BEGIN url --><a href="{URL}" target="_blank" class="postlink">{DESCRIPTION}</a><!-- END url -->
 <!-- BEGIN email --><a href="mailto:{EMAIL}">{EMAIL}</a><!-- END email -->
 <!-- BEGIN youtube -->
-<object width="425" height="350">
-   <param name="movie" value="http://www.youtube.com/v/{YOUTUBEID}"></param>
-   <embed src="http://www.youtube.com/v/{YOUTUBEID}" type="application/x-shockwave-flash" width="425" height="350"></embed>
-</object><br />
+<iframe width="560" height="315" src="https://www.youtube.com/embed/{YOUTUBEID}" frameborder="0" allowfullscreen></iframe>
+<br />
 <a href="http://youtube.com/watch?v={YOUTUBEID}" target="_blank">{YOUTUBELINK}</a><br />
 <!-- END youtube --> 
 <!-- BEGIN acronym_open --><acronym onMouseOver="createTitle(this, '{DESCRIPTION}', event.pageX, event.pageY, 1);" onMouseOut="destroyTitle();"><!-- END acronym_open -->
@@ -135,9 +134,9 @@
 
 <!-- BEGIN fullalbumimg --><a href="album_showpage.php?pic_id={IMG_NUM}" target="_blank" class="postlink"><img src="album_picm.php?pic_id={IMG_NUM}" alt="Image {IMG_NUM}" title="Image {IMG_NUM}" border="0" /></a><!-- END fullalbumimg -->
 <!-- BEGIN albumimg --><a href="album_showpage.php?pic_id={IMG_NUM}" target="_blank" class="postlink"><img src="album_thumbnail.php?pic_id={IMG_NUM}" alt="Image {IMG_NUM}" title="Image {IMG_NUM}" border="0" /></a><!-- END albumimg -->
-<!-- BEGIN albumimgl --><a href="album_showpage.php?pic_id={IMG_NUM}" target="_blank" class="postlink"><img src="album_thumbnail.php?pic_id={IMG_NUM}" border="0" align="left" alt="Image {IMG_NUM}" title="Image {IMG_NUM}" /></a><!-- END albumimgl -->
-<!-- BEGIN albumimgr --><a href="album_showpage.php?pic_id={IMG_NUM}" target="_blank" class="postlink"><img src="album_thumbnail.php?pic_id={IMG_NUM}" border="0" align="right" alt="Image {IMG_NUM}" title="Image {IMG_NUM}" /></a><!-- END albumimgr -->
-<!-- BEGIN albumimgc --><center><a href="album_showpage.php?pic_id={IMG_NUM}" target="_blank" class="postlink"><img src="album_thumbnail.php?pic_id={IMG_NUM}" border="0" align="center" alt="Image {IMG_NUM}" title="Image {IMG_NUM}" /></a></center><!-- END albumimgc -->
+<!-- BEGIN fullalbumimgl --><a href="album_showpage.php?pic_id={IMG_NUM}" target="_blank" class="postlink"><img src="album_picm.php?pic_id={IMG_NUM}" align="left" alt="Image {IMG_NUM}" title="Image {IMG_NUM}" border="0" /></a><!-- END fullalbumimgl -->
+<!-- BEGIN fullalbumimgr --><a href="album_showpage.php?pic_id={IMG_NUM}" target="_blank" class="postlink"><img src="album_picm.php?pic_id={IMG_NUM}" align="right" alt="Image {IMG_NUM}" title="Image {IMG_NUM}" border="0" /></a><!-- END fullalbumimgr -->
+<!-- BEGIN fullalbumimgc --><a href="album_showpage.php?pic_id={IMG_NUM}" target="_blank" class="postlink"><img src="album_picm.php?pic_id={IMG_NUM}" align="center" alt="Image {IMG_NUM}" title="Image {IMG_NUM}" border="0" /></a><!-- END fullalbumimgc -->
 
 <!-- BEGIN spoil_open -->
 	<div>
