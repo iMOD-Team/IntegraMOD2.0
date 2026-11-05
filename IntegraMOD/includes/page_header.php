@@ -911,10 +911,10 @@ if ( CT_DEBUG_MODE === true && $userdata['user_level'] == ADMIN )
 
 // Start add - Complete banner MOD
 // V: rewritten the code to do it via PHP not via SQL
-$time_now=time();
-$hour_now=create_date('Hi',$time_now,$board_config['board_timezone']);
-$date_now=create_date('Ymd',$time_now,$board_config['board_timezone']);
-$week_now=create_date('w',$time_now,$board_config['board_timezone']);
+$time_now = time();
+$hour_now = (int) create_date('Hi', $time_now, $board_config['board_timezone']);
+$date_now = (int) create_date('Ymd', $time_now, $board_config['board_timezone']);
+$week_now = (int) create_date('w', $time_now, $board_config['board_timezone']);
 $sql = "SELECT * FROM " . BANNERS_TABLE;
 if ( !($result = $db->sql_query($sql, false, "banner")) )
 {
@@ -927,24 +927,37 @@ while ($possible_banner = $db->sql_fetchrow($result))
 	{
 		continue;
 	}
-	$hour_within = $hour_now < $possible_banner['time_begin'] || $hour_now > $possible_banner['time_end'];
-	$date_within = $date_now < $possible_banner['date_begin'] || $date_now > $possible_banner['date_end'];
-	$week_within = $week_now < $possible_banner['date_begin'] || $week_now > $possible_banner['date_end'];
-	switch ($possible_banner['banner_timetype'])
+
+	$time_begin = (int) $possible_banner['time_begin'];
+	$time_end = (int) $possible_banner['time_end'];
+	$date_begin = (int) $possible_banner['date_begin'];
+	$date_end = (int) $possible_banner['date_end'];
+	$hour_outside = ($hour_now < $time_begin || $hour_now > $time_end);
+	$date_outside = ($date_now < $date_begin || $date_now > $date_end);
+	$week_outside = ($week_now < $date_begin || $week_now > $date_end);
+	switch ((int) $possible_banner['banner_timetype'])
 	{
-		case 2:
-			if (!$hour_within)
+		case 2: // by time
+			if ($hour_outside)
+			{
 				continue 2;
-
-		case 4:
-			if (!$date_within)
+			}
+			break;
+		case 4: // by day of week (date_begin/date_end store the weekday)
+			if ($week_outside || $hour_outside)
+			{
 				continue 2;
-
-		case 6:
-			if (!$week_within)
+			}
+			break;
+		case 6: // by date, still limited to the time interval
+			if ($date_outside || $hour_outside)
+			{
 				continue 2;
-
-		// case: 0: ;
+			}
+			break;
+		case 0:
+		default:
+			break;
 	}
 
 	// banner mod uses an ascending user_level system (in phpBB, mod = 2, admin = 1)
@@ -958,25 +971,40 @@ while ($possible_banner = $db->sql_fetchrow($result))
 			$banner_user_level = 1;
 			break;
 		case ADMIN:
+		case JADMIN:
+		case BOARD_ADMIN:
+		case ADMIN_FOUNDER:
 			$banner_user_level = 2;
 			break;
 	}
 
-	$banner_level = $possible_banner['banner_level'];
-	switch ($possible_banner['banner_level_type'])
+	$banner_level = (int) $possible_banner['banner_level'];
+	switch ((int) $possible_banner['banner_level_type'])
 	{
-		case 0: // must be equal
-			if ($banner_level != $banner_user_level)
-				continue 2; // it's not, skip this row
-		case 1: // must be less or equal
-			if ($banner_level > $banner_user_level)
-				continue 2; // it's not, skip this row
-		case 2: // must be greater or equal
-			if ($banner_level < $banner_user_level)
-				continue 2; // it's not, skip this row
-		case 1: // must be unequal
-			if ($banner_level == $banner_user_level)
-				continue 2; // it's not, skip this row
+		case 0: // user must be equal
+			if ($banner_user_level != $banner_level)
+			{
+				continue 2;
+			}
+			break;
+		case 1: // user must be less or equal
+			if ($banner_user_level > $banner_level)
+			{
+				continue 2;
+			}
+			break;
+		case 2: // user must be greater or equal
+			if ($banner_user_level < $banner_level)
+			{
+				continue 2;
+			}
+			break;
+		case 3: // user must not be equal
+			if ($banner_user_level == $banner_level)
+			{
+				continue 2;
+			}
+			break;
 	}
 
 	// TODO implement banner_weight(?)
@@ -986,7 +1014,13 @@ while ($possible_banner = $db->sql_fetchrow($result))
 $db->sql_freeresult($result);
 shuffle($banners);
 $banner_count = ((($__imc5 = $banners) instanceof Countable || is_array($__imc5)) ? count($__imc5) : 0);
-$last_spot = null;
+$used_spots = array();
+$banner_show_list = array();
+$current_forum = 0;
+if (isset($forum_id))
+{
+	$current_forum = (int) $forum_id;
+}
 for ($i = 0; $i < $banner_count; $i++)
 {
 	$cookie_name = $board_config['cookie_name'] . '_b_' . $banners[$i]['banner_id'];
@@ -996,30 +1030,27 @@ for ($i = 0; $i < $banner_count; $i++)
 	}
 	if ($banners[$i]['banner_forum'])
 	{
-		if (!isset($forum_id))
-		{ // we're not in a forum but the banner requires one
-			continue;
-		}
-		if ($forum != $banners[$i]['banner_forum'])
-		{ // wrong forum
+		if (!$current_forum || $current_forum != (int) $banners[$i]['banner_forum'])
+		{
 			continue;
 		}
 	}
 
-	$banner_spot = $banners[$i]['banner_spot'];
-	if ($banner_spot == $last_spot)
+	$banner_spot = (int) $banners[$i]['banner_spot'];
+	if (isset($used_spots[$banner_spot]))
 	{
 		continue;
 	}
-	$last_spot = $banner_spot;
+	$used_spots[$banner_spot] = true;
 
-	$banner_size = ($banners[$i]['banner_width'] && $banners[$i]['banner_height']) ? '"width="'.$banners[$i]['banner_width'].'" height="'.$banners[$i]['banner_height'].'"' : '';
-                $template->assign_block_vars('switch_banner_'.$banner_spot, array() );
-	switch ($banners[$i]['banner_type'])
+	$banner_size = ($banners[$i]['banner_width'] && $banners[$i]['banner_height']) ? ' width="' . (int) $banners[$i]['banner_width'] . '" height="' . (int) $banners[$i]['banner_height'] . '"' : '';
+	$banner_alt = htmlspecialchars($banners[$i]['banner_description'], ENT_QUOTES, 'UTF-8');
+	$template->assign_block_vars('switch_banner_' . $banner_spot, array());
+	switch ((int) $banners[$i]['banner_type'])
 	{
 		case 6:
 			// swf file
-			$banner_html = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,23,0" id=macromedia '.$banner_size.' align="abscenter"><param name=movie value="'.$banners[$i]['banner_name'].'"><param name=quality value=high><embed src="'.$banners[$i]['banner_name'].'" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" autostart="true" /><noembed><a href="'.append_sid('redirect.'.$phpEx.'?banner_id='.$banners[$i]['banner_id']).'" target="_blank">'.$banners[$i]['banner_description'].'</a></noembed></object>';
+			$banner_html = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,23,0" id=macromedia '.$banner_size.' align="abscenter"><param name=movie value="'.$banners[$i]['banner_name'].'"><param name=quality value=high><embed src="'.$banners[$i]['banner_name'].'" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" autostart="true" /><noembed><a href="'.append_sid('redirect.'.$phpEx.'?banner_id='.$banners[$i]['banner_id']).'" target="_blank">'.$banner_alt.'</a></noembed></object>';
 			break;
 		case 4:
 			// custom code
@@ -1031,9 +1062,9 @@ for ($i = 0; $i < $banner_count; $i++)
 			break;
 		case 0:
 		default:
-			$banner_html = '<a href="'.append_sid('redirect.'.$phpEx.'?banner_id='.$banners[$i]['banner_id']).'" target="_blank"><img src="'.$banners[$i]['banner_name'].'" '.$banner_size.' class="img-fluid" alt="'.$banners[$i]['banner_description'].'" title="'.$banners[$i]['banner_description'].'" /></a>';
+			$banner_html = '<a href="'.append_sid('redirect.'.$phpEx.'?banner_id='.$banners[$i]['banner_id']).'" target="_blank"><img src="'.$banners[$i]['banner_name'].'"'.$banner_size.' class="img-fluid" alt="'.$banner_alt.'" title="'.$banner_alt.'" /></a>';
 	}
-	$template->assign_vars(array('BANNER_'.$banner_spot.'_IMG' => $banner_html));
+	$template->assign_vars(array('BANNER_' . $banner_spot . '_IMG' => $banner_html));
 	$banner_show_list[] = $banners[$i]['banner_id'];
 }
 // End add - Complete banner MOD
