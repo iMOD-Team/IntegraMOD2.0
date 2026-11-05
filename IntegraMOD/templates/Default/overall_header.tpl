@@ -281,7 +281,7 @@ if ({buddy_alert.BUDDY_ALERT} == 1)
 	<!-- BEGIN switch_portal_header -->
 	  <tr>
 	    <td width="10">&nbsp;</td>
-		<td width="{HEADER_WIDTH}" valign="top">&nbsp;</td>
+		<td width="{HEADER_WIDTH}px" valign="top">&nbsp;</td>
 		<td width="10">&nbsp;</td>
 		<td>&nbsp;</td>
 		<td width="10">&nbsp;</td>
@@ -293,18 +293,18 @@ if ({buddy_alert.BUDDY_ALERT} == 1)
 		<td width="10">&nbsp;</td>
 		<td>&nbsp;</td>
 		<td width="10">&nbsp;</td>
-		<td width="{FOOTER_WIDTH}" valign="top">&nbsp;</td>
+		<td width="{FOOTER_WIDTH}px" valign="top">&nbsp;</td>
 		<td width="10">&nbsp;</td>
 	  </tr>
 	<!-- END switch_portal_tail -->
 	<!-- BEGIN switch_portal_both -->
 	  <tr>
 		<td width="10">&nbsp;</td>
-		<td width="{HEADER_WIDTH}" valign="top">&nbsp;</td>
+		<td width="{HEADER_WIDTH}px" valign="top">&nbsp;</td>
 		<td width="10">&nbsp;</td>
 		<td>&nbsp;</td>
 		<td width="10">&nbsp;</td>
-		<td width="{FOOTER_WIDTH}" valign="top">&nbsp;</td>
+		<td width="{FOOTER_WIDTH}px" valign="top">&nbsp;</td>
 		<td width="10">&nbsp;</td>
 	  </tr>
 	<!-- END switch_portal_both -->

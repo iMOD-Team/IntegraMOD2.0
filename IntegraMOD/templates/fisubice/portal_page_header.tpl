@@ -7,7 +7,7 @@
 	<td width="10"><img src="{no_layout_collapse.SPACER}" alt="" width="10" height="30" /></td>
 	<!-- END no_layout_collapse -->
 	<!-- The td cell that closes when the collapse column button is clicked -->
-	<td id="header_block" width="{HEADER_WIDTH}" valign="top" style="display: '';">
+	<td id="header_block" width="{HEADER_WIDTH}px" valign="top" style="display: '';">
 	  <table cellpadding="0" cellspacing="0" border="0">
 		<tr>
 		  <td valign="top">

@@ -74,8 +74,7 @@ masterdavid : 2004
 </tr>
 </table>
 <div align="center" class="genbig">
-Powered by <a href="http://www.phpbb.com/">phpBB{PHPBB_VERSION}</a>&reg; Forum Software &copy; phpBB Group<br /> 
-[ <a href="http://www.integramod.com" target="_IM">IntegraMOD</a> <a href="hacks_list.php">{INTEGRAMOD_VERSION}</a> &copy; 2004 - 2023 <a href="http://www.integramod.com" target="_IM">The Integramod Group</a> ]<br />
+[ <a href="http://www.integramod.com" target="_IM">IntegraMOD</a> <a href="hacks_list.php">{INTEGRAMOD_VERSION}</a> &copy; 2004 - 2026 <a href="http://www.integramod.com" target="_IM">The Integramod Group</a> ]<br />
 :: IntegraStyle by <a href="mailto:simplyarianne@yahoo.com">Arianne Rose delos Santos</a>  ::<br />
 <!-- Begin Lo-Fi Mod -->
 {LOFI}

@@ -1,5 +1,5 @@
 <td width="10"><img src="{TEMPLATE}images/spacer.gif" alt="" width="10" /></td>
-<td width="{FOOTER_WIDTH}" valign="top">
+<td width="{FOOTER_WIDTH}px" valign="top">
 
 <!-- BEGIN tail_blocks_row -->
 <table width="100%" cellpadding="5" cellspacing="0" border="0" >

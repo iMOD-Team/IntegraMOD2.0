@@ -233,6 +233,9 @@ if (buddyAlert.isEnabled) {
 	<div id="page-header">
 		<div class="headerbar">
 			<div class="inner"><span class="corners-top"><span></span></span>
+			<!-- BEGIN switch_banner_0 -->
+			<div class="banner-overall">{BANNER_0_IMG}</div>
+			<!-- END switch_banner_0 -->
 			<div id="site-description">
 				<a href="{U_INDEX}" title="{L_INDEX}" id="logo"><img src="templates/prosilver/images/site_logo.svg" width="139" height="52" alt="" title="{SITENAME}" /></a>
 				<h1>{SITENAME}</h1>

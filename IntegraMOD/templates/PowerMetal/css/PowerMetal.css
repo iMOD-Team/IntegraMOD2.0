@@ -452,6 +452,11 @@ li.pcpvt {display: inline-block;vertical-align: bottom;}
 .menu li a:hover {
 	color: #F0F0F0;
 }
+.menu a.dropdown-arrow:after {
+	content: "\25BF";
+	margin-left: 5px;
+	color: #CACACA;
+}
 .menu ul.sub-menus {
 	display: none;
 	position: absolute;

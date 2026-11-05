@@ -218,7 +218,31 @@ window.open('{buddy_alert.U_BUDDY_ALERT}', '_buddyalert', 'HEIGHT=225,resizable=
 	  <table class="btmnav" cellpadding="0" cellspacing="0">
 	    <tr>
 		  <td align="right"><a href="#bot"><div class="hdr_right"><img src="images/spacer.gif" height="28" width="30" title="{L_TOPIC_DOWN_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
-		  <td class="" align="center" width="100%">{QMENUS}</td>
+		  <td align="center" width="100%"><nav class="menu"><ul>{QMENUS}
+		<li><a class="dropdown-arrow" href="#"><img src="templates/subSilver/images/icon_mini_search.gif" alt="" border="0" /> {L_SEARCH} </a>
+		  <ul class="sub-menus">
+			<li><a href="{U_SEARCH}"><img src="templates/subSilver/images/icon_mini_search.gif" alt="" border="0" /> {L_SEARCH}</a></li>
+			<li><a href="{U_SEARCH_UNANSWERED}"><img src="templates/subSilver/images/icon_mini_search.gif" alt="" border="0" /> {L_SEARCH_UNANSWERED}</a></li>
+			<!-- BEGIN switch_user_logged_in -->
+			<li><a href="{U_SEARCH_NEW}"><img src="templates/subSilver/images/icon_mini_search.gif" alt="" border="0" /> {L_SEARCH_NEW}</a></li>
+			<li><a href="{U_SEARCH_SELF}"><img src="templates/subSilver/images/icon_mini_search.gif" alt="" border="0" /> {L_SEARCH_SELF}</a></li>
+			<!-- END switch_user_logged_in -->
+		  </ul>
+		</li>
+		<!-- BEGIN switch_user_logged_in -->
+		<li><a class="dropdown-arrow username uname" href="#"><img src="templates/subSilver/images/icon_mini_profile.gif" alt="" border="0" />&nbsp;{U_THISUSER}&nbsp;</a>
+		  <ul class="sub-menus">
+			<li><a href="{U_PROFILE}"><img src="templates/subSilver/images/icon_mini_profile.gif" alt="" border="0" /> {L_PROFILE}</a></li>
+			<li><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}"><img src="templates/subSilver/images/icon_mini_members.gif" alt="" border="0" /> {L_READ_PROFILE}</a></li>
+			<!-- IF S_DISPLAY_SEARCH -->
+			<li><a href="{U_SEARCH_SELF}"><img src="templates/subSilver/images/icon_mini_search.gif" alt="" border="0" /> {L_SEARCH_SELF}</a></li>
+			<!-- ENDIF -->
+			<li>{ADMIN_SHORT_LINK}</li>
+			<li><a href="{U_LOGIN_LOGOUT}"><img src="templates/subSilver/images/icon_mini_login.gif" alt="" border="0" /> {L_LOGIN_LOGOUT}</a></li>
+		  </ul>
+		</li>
+		<!-- END switch_user_logged_in -->
+		</ul></nav></td>
 		  <td align="left"><a href="#bot"><div class="hdr_left"><img src="images/spacer.gif" height="28" width="30" title="{L_TOPIC_DOWN_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
 	    </tr>
 	  </table>
@@ -259,7 +283,7 @@ window.open('{buddy_alert.U_BUDDY_ALERT}', '_buddyalert', 'HEIGHT=225,resizable=
 	    <!-- BEGIN switch_portal_header -->
 	    <tr>
 	      <td width="10">&nbsp;</td>
-		  <td width="{HEADER_WIDTH}" valign="top">&nbsp;</td>
+		  <td width="{HEADER_WIDTH}px" valign="top">&nbsp;</td>
 		  <td width="10">&nbsp;</td>
 		  <td>&nbsp;</td>
 		  <td width="10">&nbsp;</td>
@@ -271,18 +295,18 @@ window.open('{buddy_alert.U_BUDDY_ALERT}', '_buddyalert', 'HEIGHT=225,resizable=
 		  <td width="10">&nbsp;</td>
 		  <td>&nbsp;</td>
 		  <td width="10">&nbsp;</td>
-		  <td width="{FOOTER_WIDTH}" valign="top">&nbsp;</td>
+		  <td width="{FOOTER_WIDTH}px" valign="top">&nbsp;</td>
 		  <td width="10">&nbsp;</td>
 	    </tr>
 	    <!-- END switch_portal_tail -->
 	    <!-- BEGIN switch_portal_both -->
 	    <tr>
 		  <td width="10">&nbsp;</td>
-		  <td width="{HEADER_WIDTH}" valign="top">&nbsp;</td>
+		  <td width="{HEADER_WIDTH}px" valign="top">&nbsp;</td>
 		  <td width="10">&nbsp;</td>
 		  <td>&nbsp;</td>
 		  <td width="10">&nbsp;</td>
-		  <td width="{FOOTER_WIDTH}" valign="top">&nbsp;</td>
+		  <td width="{FOOTER_WIDTH}px" valign="top">&nbsp;</td>
 		  <td width="10">&nbsp;</td>
 	    </tr>
 	    <!-- END switch_portal_both -->

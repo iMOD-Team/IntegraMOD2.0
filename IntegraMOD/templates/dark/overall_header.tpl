@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="{TEMPLATE}{T_HEAD_STYLESHEET}" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{TEMPLATE}/css/report_hack.css" />
 <link rel="stylesheet" type="text/css" href="{TEMPLATE}/css/responsive.css" />
+<link rel="stylesheet" type="text/css" href="{TEMPLATE}/css/qbar.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="templates/assets/js/toggle_display.js"></script>
 <script src="templates/assets/js/importal.js"></script>
 
@@ -230,7 +232,31 @@ jQuery(document).ready(function(){
 <table border="0" cellpadding="0" cellspacing="0">
 <tr>
 <td align="right"><a href="#bot"><div class="hdr_right"><img src="{TEMPLATE}/images/spacer.gif" height="28" width="20" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
-<td align="center" width="100%" class="topnav">{QMENUS}</td>
+<td align="center" width="100%" class="topnav"><nav class="menu"><ul>{QMENUS}
+<li><a class="dropdown-arrow" href="#"> {L_SEARCH} </a>
+  <ul class="sub-menus">
+	<li><a href="{U_SEARCH}">{L_SEARCH}</a></li>
+	<li><a href="{U_SEARCH_UNANSWERED}">{L_SEARCH_UNANSWERED}</a></li>
+	<!-- BEGIN switch_user_logged_in -->
+	<li><a href="{U_SEARCH_NEW}">{L_SEARCH_NEW}</a></li>
+	<li><a href="{U_SEARCH_SELF}">{L_SEARCH_SELF}</a></li>
+	<!-- END switch_user_logged_in -->
+  </ul>
+</li>
+<!-- BEGIN switch_user_logged_in -->
+<li><a class="dropdown-arrow username uname" href="#">&nbsp;{U_THISUSER}&nbsp;</a>
+  <ul class="sub-menus">
+	<li><a href="{U_PROFILE}"><i class="fa-solid fa-user-gear"></i> {L_PROFILE}</a></li>
+	<li><a href="{U_USER_PROFILE}" title="{L_READ_PROFILE}"><i class="fa-solid fa-address-card"></i> {L_READ_PROFILE}</a></li>
+	<!-- IF S_DISPLAY_SEARCH -->
+	<li><a href="{U_SEARCH_SELF}"><i class="fa-solid fa-magnifying-glass"></i> {L_SEARCH_SELF}</a></li>
+	<!-- ENDIF -->
+	<li>{ADMIN_SHORT_LINK}</li>
+	<li><a href="{U_LOGIN_LOGOUT}"><i class="fa-solid fa-power-off"></i> {L_LOGIN_LOGOUT}</a></li>
+  </ul>
+</li>
+<!-- END switch_user_logged_in -->
+</ul></nav></td>
 <td align="left"><a href="#bot"><div class="hdr_left"><img src="{TEMPLATE}/images/spacer.gif" height="28" width="20" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
 
 </tr>
@@ -271,7 +297,7 @@ jQuery(document).ready(function(){
 <!-- BEGIN switch_portal_header -->
 <tr>
 <td width="10">&nbsp;</td>
-<td width="{HEADER_WIDTH}" valign="top">&nbsp;</td>
+<td width="{HEADER_WIDTH}px" valign="top">&nbsp;</td>
 <td width="10">&nbsp;</td>
 <td width>&nbsp;</td>
 <td width="10">&nbsp;</td>
@@ -283,18 +309,18 @@ jQuery(document).ready(function(){
 <td width="10">&nbsp;</td>
 <td width>&nbsp;</td>
 <td width="10">&nbsp;</td>
-<td width="{FOOTER_WIDTH}" valign="top">&nbsp;</td>
+<td width="{FOOTER_WIDTH}px" valign="top">&nbsp;</td>
 <td width="10">&nbsp;</td>
 </tr>
 <!-- END switch_portal_tail -->
 <!-- BEGIN switch_portal_both -->
 <tr>
 <td width="10">&nbsp;</td>
-<td width="{HEADER_WIDTH}" valign="top">&nbsp;</td>
+<td width="{HEADER_WIDTH}px" valign="top">&nbsp;</td>
 <td width="10">&nbsp;</td>
 <td width>&nbsp;</td>
 <td width="10">&nbsp;</td>
-<td width="{FOOTER_WIDTH}" valign="top">&nbsp;</td>
+<td width="{FOOTER_WIDTH}px" valign="top">&nbsp;</td>
 <td width="10">&nbsp;</td>
 </tr>
 <!-- END switch_portal_both -->

@@ -1,0 +1,106 @@
+/* qbar nav and dropdowns. Transparent so the color nav image still shows. */
+.topnav,
+.btmnav {
+    height: auto;
+    min-height: 28px;
+    overflow: visible;
+    position: relative;
+}
+
+.menu {
+    background: transparent;
+    height: auto;
+    width: 100%;
+    position: relative;
+}
+
+.menu ul,
+.menu li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu > ul {
+    width: 100%;
+    text-align: center;
+    white-space: normal;
+}
+
+.menu li {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+.menu a {
+    display: inline-block;
+    line-height: 28px;
+    padding: 0 8px;
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: bold;
+    color: #CCCCCC;
+}
+
+.menu li a:hover {
+    color: #FFFFFF;
+}
+
+.menu a img {
+    vertical-align: middle;
+    margin-right: 3px;
+}
+
+.menu a.dropdown-arrow:after {
+    content: "\25BF";
+    margin-left: 5px;
+}
+
+.menu ul.sub-menus {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 99;
+    width: 180px;
+    height: auto;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    white-space: normal;
+    background: #1D1E20;
+    border: 1px solid #6C6D6D;
+}
+
+.menu ul.sub-menus li {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.menu ul.sub-menus a {
+    display: block;
+    line-height: 22px;
+    padding: 2px 10px;
+    font-size: 10px;
+    font-weight: normal;
+    color: #CCCCCC;
+    white-space: nowrap;
+}
+
+.menu ul.sub-menus a:hover {
+    background: #404040;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.menu li:hover > ul.sub-menus {
+    display: block;
+}
+
+.menu.menu-up ul.sub-menus {
+    top: auto;
+    bottom: 100%;
+}

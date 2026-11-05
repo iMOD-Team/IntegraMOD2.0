@@ -205,7 +205,7 @@ window.open('{buddy_alert.U_BUDDY_ALERT}', '_buddyalert', 'HEIGHT=225,resizable=
 <td>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 <tr>
-<td width="100%">&nbsp;</td>
+<td width="100%" align="right"><!-- BEGIN switch_banner_0 -->{BANNER_0_IMG}<!-- END switch_banner_0 --></td>
 <td align="right" nowrap="nowrap"><br /><span style="font:bold 14 Arial;"><font color="#0000FF"><b>Integra</b></font>ting <font color="#F26521"><b>MOD</b></font>ifications</span></td>
 <td>&nbsp;&nbsp;&nbsp;</td>
 </tr>
@@ -292,7 +292,7 @@ window.open('{buddy_alert.U_BUDDY_ALERT}', '_buddyalert', 'HEIGHT=225,resizable=
 <!-- BEGIN switch_portal_header -->
 <tr>
 <td class="row1" width="10">&nbsp;</td>
-<td class="row1" width="{HEADER_WIDTH}" valign="top">&nbsp;</td>
+<td class="row1" width="{HEADER_WIDTH}px" valign="top">&nbsp;</td>
 <td width="10">&nbsp;</td>
 <td>&nbsp;</td>
 <td width="10">&nbsp;</td>
@@ -304,18 +304,18 @@ window.open('{buddy_alert.U_BUDDY_ALERT}', '_buddyalert', 'HEIGHT=225,resizable=
 <td width="10">&nbsp;</td>
 <td>&nbsp;</td>
 <td width="10">&nbsp;</td>
-<td width="{FOOTER_WIDTH}" valign="top">&nbsp;</td>
+<td width="{FOOTER_WIDTH}px" valign="top">&nbsp;</td>
 <td width="10">&nbsp;</td>
 </tr>
 <!-- END switch_portal_tail -->
 <!-- BEGIN switch_portal_both -->
 <tr>
 <td width="10">&nbsp;</td>
-<td width="{HEADER_WIDTH}" valign="top">&nbsp;</td>
+<td width="{HEADER_WIDTH}px" valign="top">&nbsp;</td>
 <td width="10">&nbsp;</td>
 <td>&nbsp;</td>
 <td width="10">&nbsp;</td>
-<td width="{FOOTER_WIDTH}" valign="top">&nbsp;</td>
+<td width="{FOOTER_WIDTH}px" valign="top">&nbsp;</td>
 <td width="10">&nbsp;</td>
 </tr>
 <!-- END switch_portal_both -->

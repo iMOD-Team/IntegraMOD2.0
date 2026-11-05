@@ -29,7 +29,7 @@ masterdavid : 2004
       <table border="0" cellpadding="0" cellspacing="0" width="100%">
 		<tr>
 		  <td align="right"><a href="#top"><img src="{TEMPLATE}images/nav_lbottom.gif" height="24" width="20" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></td>
-		  <td align="center" width="100%" class="qb">{QMENUS}</td>
+		  <td align="center" width="100%" class="qb"><nav class="menu menu-up"><ul>{QMENUS}</ul></nav></td>
 		  <td align="left"><a href="#top"><img src="{TEMPLATE}images/nav_rbottom.gif" height="24" width="20" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></td>
 		  </tr>
 	  </table>
@@ -39,8 +39,7 @@ masterdavid : 2004
 
 <div align="center" class="copyright">
 <br />
-<a href="http://www.integramod.com/" target="_phpbb">IntegraMOD</a> <a href="hacks_list.php" target="_phpbb">{INTEGRAMOD_VERSION}</a> © 2004 - 2011 <a href="http://www.integramod.com/forum/memberlist.php?mode=leaders" target="_phpbb">The Integramod Group</a><br />
-Powered by <a href="http://www.phpbb.com/" target="_phpbb">phpBB</a>{PHPBB_VERSION}&reg; Forum Software &copy; phpBB Group<br /> 
+<a href="http://www.integramod.com/" target="_phpbb">IntegraMOD</a> <a href="hacks_list.php" target="_phpbb">{INTEGRAMOD_VERSION}</a> &copy; 2004 - 2026 <a href="http://www.integramod.com/forum/memberlist.php?mode=leaders" target="_phpbb">The Integramod Group</a><br />
 {S_TIMEZONE}&nbsp;&bull;&nbsp;{COOKIES_LINK}<!-- Begin Lo-Fi Mod -->&nbsp;&bull;&nbsp;{LOFI}<!-- End Lo-Fi Mod -->
 {STYLECWI2}  <!--replace this with style author info -->
 <!-- BEGIN switch_user_logged_in -->{L_STATUS_LOGIN}&nbsp;&bull;&nbsp;{BLOCKED}<br /><!-- END switch_user_logged_in -->{TRANSLATION_INFO}

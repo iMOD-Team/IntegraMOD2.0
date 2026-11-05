@@ -16,9 +16,9 @@
 	      <td colspan ="10">
 		    <table class="btmnav" cellpadding="0" cellspacing="0">
 		      <tr>
-		        <td align="right"><a href="#top"><div class="ftr_right"><img src="images/spacer.gif" height="28" width="30" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
-		        <td align="center" width="100%" class="">{QMENUS}</td>
-		        <td align="left"><a href="#top"><div class="ftr_left"><img src="images/spacer.gif" height="28" width="30" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
+				<td align="right"><a href="#top"><div class="ftr_right"><img src="images/spacer.gif" height="28" width="30" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
+				<td align="center" width="100%"><nav class="menu menu-up"><ul>{QMENUS}</ul></nav></td>
+				<td align="left"><a href="#top"><div class="ftr_left"><img src="images/spacer.gif" height="28" width="30" title="{L_TOPIC_UP_IMAGE}" border="0" alt="{L_TOPIC_UP_IMAGE}" /></div></td>
 		      </tr>
 		    </table>
 	      </td>

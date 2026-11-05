@@ -144,6 +144,17 @@ a#logo:hover{text-decoration:none;}
 	width:70%;
 }
 
+.banner-overall{
+	clear:both;
+	text-align:center;
+	padding:6px 0 2px;
+}
+
+.banner-overall img{
+	max-width:100%;
+	height:auto;
+}
+
 #site-description h1{margin-right:0;}
 
 .headerbar{
