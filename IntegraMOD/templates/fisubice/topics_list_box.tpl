@@ -43,15 +43,15 @@ function check_uncheck_all_{topics_list_box.row.header_table.BOX_ID}()
 </script>
 <!-- END multi_selection -->
 <table border="0" cellpadding="0" cellspacing="0" class="tbt"><tr><td class="tbtl"><img src="images/spacer.gif" alt="" width="22" height="22" /></td><td class="tbtbot"><b></b><span class="gen"><a href="{catrow.U_VIEWCAT}" class="cattitle">{catrow.CAT_DESC}</a></span></td><td class="tbtr"><img src="images/spacer.gif" alt="" width="124" height="22" /></td></tr></table>
-<table border="0" cellpadding="4" cellspacing="1" width="100%" class="forumline">
+<table border="0" cellpadding="4" cellspacing="1" width="100%" class="forumline topic-list">
 <tr>
 	<th colspan="{topics_list_box.row.header_table.COLSPAN}" align="center" nowrap="nowrap">&nbsp;{topics_list_box.row.L_TITLE}&nbsp;</th>
-	<th width="50" align="center" nowrap="nowrap">&nbsp;{topics_list_box.row.L_REPLIES}&nbsp;</th>
-	<th width="100" align="center" nowrap="nowrap">&nbsp;{topics_list_box.row.L_AUTHOR}&nbsp;</th>
-	<th width="50" align="center" nowrap="nowrap">&nbsp;{topics_list_box.row.L_VIEWS}&nbsp;</th>
-	<th width="150" align="center" nowrap="nowrap">&nbsp;{topics_list_box.row.L_LASTPOST}&nbsp;</th>
+	<th class="replies" width="50" align="center" nowrap="nowrap">&nbsp;{topics_list_box.row.L_REPLIES}&nbsp;</th>
+	<th class="author" width="100" align="center" nowrap="nowrap">&nbsp;{topics_list_box.row.L_AUTHOR}&nbsp;</th>
+	<th class="views" width="50" align="center" nowrap="nowrap">&nbsp;{topics_list_box.row.L_VIEWS}&nbsp;</th>
+	<th class="lastpost" width="150" align="center" nowrap="nowrap">&nbsp;{topics_list_box.row.L_LASTPOST}&nbsp;</th>
 	<!-- BEGIN multi_selection -->
-	<th width="20" align="center" nowrap="nowrap"><input type="checkbox" name="all_mark_{topics_list_box.row.header_table.BOX_ID}" value="0" onClick="check_uncheck_all_{topics_list_box.row.header_table.BOX_ID}();" /></th>
+	<th class="permissions" width="20" align="center" nowrap="nowrap"><input type="checkbox" name="all_mark_{topics_list_box.row.header_table.BOX_ID}" value="0" onClick="check_uncheck_all_{topics_list_box.row.header_table.BOX_ID}();" /></th>
 	<!-- END multi_selection -->
 </tr>
 <!-- END header_table -->
@@ -67,9 +67,9 @@ function check_uncheck_all_{topics_list_box.row.header_table.BOX_ID}()
 	<!-- BEGIN single_selection -->
 	<td class="{topics_list_box.row.ROW_CLASS}" align="center" valign="middle" width="20"><input type="radio" name="{topics_list_box.FIELDNAME}" value="{topics_list_box.row.FID}" {topics_list_box.row.L_SELECT} /></td>
 	<!-- END single_selection -->
-	<td class="{topics_list_box.row.ROW_FOLDER_CLASS} folder-cell" align="center" valign="middle"><img src="{topics_list_box.row.TOPIC_FOLDER_IMG}" alt="{topics_list_box.row.L_TOPIC_FOLDER_ALT}" title="{topics_list_box.row.L_TOPIC_FOLDER_ALT}" /></td>
+	<td class="{topics_list_box.row.ROW_FOLDER_CLASS} folder-cell topic-images" align="center" valign="middle"><img src="{topics_list_box.row.TOPIC_FOLDER_IMG}" alt="{topics_list_box.row.L_TOPIC_FOLDER_ALT}" title="{topics_list_box.row.L_TOPIC_FOLDER_ALT}" /></td>
 	<!-- BEGIN icon -->
-	<td class="{topics_list_box.row.ROW_CLASS}" align="center" valign="middle" width="20">{topics_list_box.row.ICON}</td>
+	<td class="{topics_list_box.row.ROW_CLASS} topic-images" align="center" valign="middle" width="20">{topics_list_box.row.ICON}</td>
 	<!-- END icon -->
 	<td class="{topics_list_box.row.ROW_CLASS}" width="100%"  onMouseOver="this.className='row2'" onMouseOut="this.className='{topics_list_box.row.ROW_CLASS}'">
 		<span class="topictitle">{topics_list_box.row.MINICLOCK}{topics_list_box.row.NEWEST_POST_IMG}{topics_list_box.row.TOPIC_ATTACHMENT_IMG}{topics_list_box.row.L_NEWS}{topics_list_box.row.TOPIC_TYPE}</span><span class="gensmall">{topics_list_box.row.TOPIC_INFO}</span><span class="topictitle"><a href="{topics_list_box.row.U_VIEW_TOPIC}" class="topictitle">{topics_list_box.row.TOPIC_TITLE}</a></span>&nbsp;<span>{topics_list_box.row.RATING}</span><span class="gensmall">&nbsp;&nbsp;{topics_list_box.row.TOPIC_ANNOUNCES_DATES}
@@ -82,12 +82,12 @@ function check_uncheck_all_{topics_list_box.row.header_table.BOX_ID}()
 			<!-- END nav_tree -->
 		</span>
 	</td>
-	<td class="row1" align="center" valign="middle"><span class="postdetails"><a href="{topics_list_box.row.U_POSTINGS_POPUP}" onclick="NewWindow(this.href,'PopupWin');return false" onfocus="this.blur()"; title="{L_POPUP_MESSAGE}">{topics_list_box.row.REPLIES}</a></span></td>
-	<td class="row3" align="center" valign="middle"><span class="name">{topics_list_box.row.TOPIC_AUTHOR}</span></td>
-	<td class="row1" align="center" valign="middle"><span class="postdetails">{topics_list_box.row.VIEWS}</span></td>
-	<td class="row3" align="center" valign="middle" nowrap="nowrap" onclick="window.location.href='{topics_list_box.row.U_VIEW_TOPIC}'" style="cursor: pointer; cursor: hand"><span class="postdetails">{topics_list_box.row.LAST_POST_TIME}<br />{topics_list_box.row.LAST_POST_AUTHOR} {topics_list_box.row.LAST_POST_IMG}</span></td>
+	<td class="row1 replies" align="center" valign="middle"><span class="postdetails"><a href="{topics_list_box.row.U_POSTINGS_POPUP}" onclick="NewWindow(this.href,'PopupWin');return false" onfocus="this.blur()"; title="{L_POPUP_MESSAGE}">{topics_list_box.row.REPLIES}</a></span></td>
+	<td class="row3 author" align="center" valign="middle"><span class="name">{topics_list_box.row.TOPIC_AUTHOR}</span></td>
+	<td class="row1 views" align="center" valign="middle"><span class="postdetails">{topics_list_box.row.VIEWS}</span></td>
+	<td class="row3 lastpost" align="center" valign="middle" nowrap="nowrap" onclick="window.location.href='{topics_list_box.row.U_VIEW_TOPIC}'" style="cursor: pointer; cursor: hand"><span class="postdetails">{topics_list_box.row.LAST_POST_TIME}<br />{topics_list_box.row.LAST_POST_AUTHOR} {topics_list_box.row.LAST_POST_IMG}</span></td>
 	<!-- BEGIN multi_selection -->
-	<td class="row2" align="center" valign="middle"><span class="postdetails"><input type="checkbox" name="{topics_list_box.FIELDNAME}[]{topics_list_box.row.BOX_ID}" value="{topics_list_box.row.FID}" onClick="javascript:check_uncheck_main_{topics_list_box.row.BOX_ID}();" {topics_list_box.row.L_SELECT} /></span></td>
+	<td class="row2 permissions" align="center" valign="middle"><span class="postdetails"><input type="checkbox" name="{topics_list_box.FIELDNAME}[]{topics_list_box.row.BOX_ID}" value="{topics_list_box.row.FID}" onClick="javascript:check_uncheck_main_{topics_list_box.row.BOX_ID}();" {topics_list_box.row.L_SELECT} /></span></td>
 	<!-- END multi_selection -->
 </tr>
 <!-- END topic -->

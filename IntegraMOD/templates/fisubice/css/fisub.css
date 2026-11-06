@@ -421,17 +421,40 @@ div.menu ul.menu li.menu-item.active > .submenu {
 
 
 
-@media only screen and (max-width: 767px) {
-    html { 
-    -webkit-text-size-adjust: 100%;
-    }
-	.topics, .posts, .views, .replies, .searchbar {
-	  display: none !important;
+@media only screen and (max-width: 900px) {
+	.index-widgets { display: block !important; width: 100% !important; }
+	.calendar-widget, .chat-widget {
+		display: block !important;
+		flex: 0 0 100%;
+		width: 100% !important;
+		max-width: none;
+		min-width: 0 !important;
+		margin: 0 0 12px !important;
+	}
+	.forum-legend > .row { display: block; }
+	.forum-legend .topic-images, .forum-legend .permissions {
+		display: block;
+		width: 100%;
+		max-width: none;
+		text-align: left;
+		margin-bottom: 8px;
 	}
 }
-
-@media only screen and (max-width: 400px) {
-	.author, .topics, .posts, .views, .replies, .searchbar {
+@media only screen and (max-width: 767px) {
+	.portal-layout, .portal-layout > tbody, .portal-layout > tr, .portal-layout > tbody > tr, .portal-layout > tr > td, .portal-layout > tbody > tr > td {
+		display: block;
+		width: 100% !important;
+	}
+	html {
+	-webkit-text-size-adjust: 100%;
+	}
+	.topics, .posts, .views, .author, .searchbar {
+	  display: none !important;
+	}
+	.forumline .topic-images img, .forumline .permissions { display: block; margin: 0 auto; }
+	.forumline td.topics, .forumline td.posts, .forumline td.views, .forumline td.author,
+	.forumline th.topics, .forumline th.posts, .forumline th.views, .forumline th.author,
+	.forumline th.replies, .forumline td.replies {
 		display: none !important;
 	}
 }

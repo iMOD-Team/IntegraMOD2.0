@@ -154,7 +154,7 @@ jQuery(document).ready(function(){
 
 <table class="forumline" width="100%" cellspacing="1" cellpadding="3" border="0">
 	<tr>
-		<th width="150" height="28">{L_AUTHOR}</th>
+		<th class="author" width="150" height="28">{L_AUTHOR}</th>
 		<th width="100%">{L_MESSAGE}</th>
 	</tr>
 	<!-- BEGIN postrow -->
@@ -162,7 +162,7 @@ jQuery(document).ready(function(){
 		<tbody id="post_{postrow.POST_ID}" style="display:none">
 		<!-- END switch_buddy_ignore -->
 			<tr>
-				<td valign="top" class="{postrow.ROW_CLASS}" ><span class="name"><a name="{postrow.U_POST_ID}" id="{postrow.U_POST_ID}"></a>{postrow.AUTHOR_PANEL}
+				<td valign="top" class="{postrow.ROW_CLASS} author" ><span class="name"><a name="{postrow.U_POST_ID}" id="{postrow.U_POST_ID}"></a>{postrow.AUTHOR_PANEL}
 					<img src="{TEMPLATE}images/spacer.gif" alt="" width="150" height="1" />
 					</span>
 				</td>

@@ -72,9 +72,9 @@
   <!-- END ratingsbox -->
 
 
- <div class="container-fluid m-0 p-0">
-    <div class="row">
-	  <div class="col-7">
+ <div class="container-fluid m-0 p-0 forum-legend">
+	<div class="row">
+	  <div class="col-7 topic-images">
 	    <div class="row mb-1"> 
 	      <div class="col nw"><img src="{FOLDER_ANNOUNCE_IMG}" alt="{L_ANNOUNCEMENT}" />&nbsp;{L_ANNOUNCEMENT}</div>
 	      <div class="col nw"><img src="{FOLDER_STICKY_IMG}" alt="{L_STICKY}" />&nbsp;{L_STICKY}</div>
@@ -92,6 +92,6 @@
 	      <div class="col nw"><img src="{FOLDER_LOCKED_IMG}" alt="{L_NO_NEW_POSTS_LOCKED}" />&nbsp;{L_NO_NEW_POSTS_LOCKED}</div>
 		</div>
   	  </div>
-      <div class="col-5 gensmall text-end">{S_AUTH_LIST}</div>
+      <div class="col-5 gensmall text-end permissions">{S_AUTH_LIST}</div>
     </div>
   </div>

@@ -302,7 +302,7 @@ window.open('{buddy_alert.U_BUDDY_ALERT}', '_buddyalert', 'HEIGHT=225,resizable=
 	<!-- END switch_banner_16 -->
 
   
-<table width="100%" border="0" cellspacing="0" cellpadding="6">
+<table class="portal-layout" width="100%" border="0" cellspacing="0" cellpadding="6">
   <tr> 
   {PORTAL_HEADER}
-    <td valign="top">
+    <td class="portal-content" valign="top">

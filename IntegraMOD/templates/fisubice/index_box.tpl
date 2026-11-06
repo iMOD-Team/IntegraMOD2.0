@@ -3,9 +3,9 @@
 <table width="100%" cellpadding="2" cellspacing="1" border="0" class="forumline">
 <tr> 
 	<th colspan="{catrow.tablehead.INC_SPAN}" width="100%" nowrap="nowrap">&nbsp;{catrow.tablehead.L_FORUM}&nbsp;</th>
-	<th width="50" nowrap="nowrap">&nbsp;{L_TOPICS}&nbsp;</th>
-	<th width="50" nowrap="nowrap">&nbsp;{L_POSTS}&nbsp;</th>
-	<th width="150" nowrap="nowrap">&nbsp;{L_LASTPOST}&nbsp;</th>
+	<th class="topics" width="50" nowrap="nowrap">&nbsp;{L_TOPICS}&nbsp;</th>
+	<th class="posts" width="50" nowrap="nowrap">&nbsp;{L_POSTS}&nbsp;</th>
+	<th class="lastpost" width="150" nowrap="nowrap">&nbsp;{L_LASTPOST}&nbsp;</th>
 </tr>
 <!-- END tablehead -->
 <!-- BEGIN cathead -->
@@ -40,9 +40,9 @@
 		<!-- END forum_icon -->
 	</td>
 	<!-- BEGIN forum_link_no -->
-	<td class="row3" align="center" valign="middle" height="50"><span class="gensmall">{catrow.forumrow.TOPICS}</span></td>
-	<td class="row2" align="center" valign="middle" height="50"><span class="gensmall">{catrow.forumrow.POSTS}</span></td>
-	<td class="row3" align="center" valign="middle" height="50" nowrap="nowrap"> <span class="gensmall">{catrow.forumrow.LAST_POST}</span></td>
+	<td class="row3 topics" align="center" valign="middle" height="50"><span class="gensmall">{catrow.forumrow.TOPICS}</span></td>
+	<td class="row2 posts" align="center" valign="middle" height="50"><span class="gensmall">{catrow.forumrow.POSTS}</span></td>
+	<td class="row3 lastpost" align="center" valign="middle" height="50" nowrap="nowrap"> <span class="gensmall">{catrow.forumrow.LAST_POST}</span></td>
 	<!-- END forum_link_no -->
 	<!-- BEGIN forum_link -->
 	<td class="row3" align="center" valign="middle" height="50" colspan="3"><span class="gensmall">{catrow.forumrow.forum_link.HIT_COUNT}</span></td>

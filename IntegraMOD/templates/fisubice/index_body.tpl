@@ -36,13 +36,13 @@
 		</div>
 	  </div>
  
-    <div class="row mx-0 my-4">
-      <div class="col-3 d-inline forumline mx-0" style="min-width:250px">
+    <div class="row mx-0 my-4 index-widgets">
+      <div class="col-3 d-inline forumline mx-0 calendar-widget" style="min-width:250px">
 	    {MINI_CAL_OUTPUT}
 	  </div>
 	  <!-- BEGIN switch_user_logged_in -->
 	  <!-- Start add - Fully integrated shoutbox MOD -->
-	  <div class=" col row1 forumline ms-2 px-0">
+	  <div class=" col row1 forumline ms-2 px-0 chat-widget">
 	    <div class="row th mx-0"> 
 		  <div class="col cattitle pt-2"><a href="{U_SHOUTBOX_MAX}">{L_SHOUTBOX}</a></div>
 	    </div>
