@@ -157,7 +157,11 @@ a.icon_return_top:hover:before, a.icon_delete:hover:before, a.icon_ip:hover:befo
 	/* Table Header cells */
 th, .th {
 	color:#FFF;
-	background:#1AA7EC url(../images/blue/cellpic3.gif) repeat-x;
+	background: #1AA7EC; /* Old browsers */
+	background: -moz-linear-gradient(top, #1AA7EC 30%, #1990DF 99%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #1AA7EC 30%,#1990DF 99%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #1AA7EC 30%,#1990DF 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1AA7EC', endColorstr='#1990DF',GradientType=0 ); /* IE6-9 */
 	border-color:#0850BD;
 	border-bottom: 1px solid #839FBC;
 }

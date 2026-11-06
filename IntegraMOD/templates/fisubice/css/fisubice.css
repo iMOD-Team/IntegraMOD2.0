@@ -137,7 +137,11 @@ a .fa:hover:before {
 /* Table Header cells */
 th, .th {
 	color:#516a88;
-	background:#c6d3e4 url(../images/cellpic3.gif) repeat-x;
+	background: #e2e9f1; /* Old browsers */
+	background: -moz-linear-gradient(top, #e2e9f1 0%, #becde0 75%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #e2e9f1 0%,#becde0 75%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #e2e9f1 0%,#becde0 75%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e9f1', endColorstr='#becde0',GradientType=0 ); /* IE6-9 */
 	border-color:#91a0ae;
 }
 

@@ -153,7 +153,11 @@ a.icon_return_top:hover:before, a.icon_delete:hover:before, a.icon_ip:hover:befo
 	/* Table Header cells */
 th, .th {
 	color:#516a88;
-	background:#E1E8EF url(../images/grey/cellpic3.gif) repeat-x;
+	background: #E1E8EF; /* Old browsers */
+	background: -moz-linear-gradient(top, #E1E8EF 0%, #C0C0C0 75%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #E1E8EF 0%,#C0C0C0 75%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #E1E8EF 0%,#C0C0C0 75%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E1E8EF', endColorstr='#C0C0C0',GradientType=0 ); /* IE6-9 */
 	border-color:#91a0ae;
 }
 

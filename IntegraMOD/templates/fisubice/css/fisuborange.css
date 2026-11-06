@@ -153,7 +153,11 @@ a.icon_return_top:hover:before, a.icon_delete:hover:before, a.icon_ip:hover:befo
 	/* Table Header cells */
 th, .th {
 	color:#FFF;
-	background:#fc8704 url(../images/orange/cellpic3.gif) repeat-x;
+	background: #fc8704; /* Old browsers */
+	background: -moz-linear-gradient(top, #fc8704 2%, #ba3604 60%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #fc8704 2%,#ba3604 60%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #fc8704 2%,#ba3604 60%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fc8704', endColorstr='#ba3604',GradientType=0 ); /* IE6-9 */
 }
 
 /* Used for the navigation text,(Page 1,2,3 etc) and the navigation bar when in a forum */
