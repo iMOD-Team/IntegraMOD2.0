@@ -518,7 +518,7 @@ else
 
 	// check if we are uploading ONLY one picture, if so, then check for picture title
 	/*
-	if ( (count_safe($_FILES['pic_file']['name']) == 1 || $pic_count == 1) && empty($pic_title) )
+	if ( (((($__imc0 = $_FILES['pic_file']['name']) instanceof Countable || is_array($__imc0)) ? count($__imc0) : 0) == 1 || $pic_count == 1) && empty($pic_title) )
 	{
 		message_die(GENERAL_ERROR, $lang['Missed_pic_title']);
 	}

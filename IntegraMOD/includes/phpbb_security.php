@@ -361,13 +361,21 @@
 	function phpBBSecurity_QueryString()
 		{
 		if (isset($_SERVER['QUERY_STRING']))
-    		return str_replace('%09', '%20', $_SERVER['QUERY_STRING']);
-		elseif (isset($_SERVER['QUERY_STRING']))
-    		return str_replace('%09', '%20', $_SERVER['QUERY_STRING']);
+			return str_replace('%09', '%20', $_SERVER['QUERY_STRING']);
 		elseif (getenv('QUERY_STRING'))
 			return str_replace('%09', '%20', getenv('QUERY_STRING'));
 		else
-    		return 'unknown';		
+			return 'unknown';		
+		}
+
+	function phpBBSecurity_DecodedQueryString($encoded = false)
+		{
+		$query = phpBBSecurity_QueryString();
+		if ($encoded)
+			$query = urldecode($query);
+
+		$decoded = base64_decode($query, true);
+		return ($decoded === false) ? '' : $decoded;
 		}
 
 	function phpBBSecurity_IP()
@@ -546,15 +554,15 @@
 			stristr(urldecode(phpBBSecurity_QueryString()),'%20union%20') || 
 			stristr(urldecode(phpBBSecurity_QueryString()),'*/union/*') || 
 			stristr(urldecode(phpBBSecurity_QueryString()),' union ') || 			
-			stristr(base64_decode(phpBBSecurity_QueryString()),'%20union%20') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'*/union/*') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),' union '))
+			stristr(phpBBSecurity_DecodedQueryString(),'%20union%20') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'*/union/*') || 
+			stristr(phpBBSecurity_DecodedQueryString(),' union '))
 			$trick	= 2;
 			
 		#==== Clike Prevention Help
 		if (stristr(phpBBSecurity_QueryString(),'/*') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'/*') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'/*'))
+			stristr(phpBBSecurity_DecodedQueryString(),'/*'))
 			$trick	= 1;
 			
 		#==== SQL Injection Prevention Help
@@ -562,55 +570,55 @@
 			{
 			if (stristr(phpBBSecurity_QueryString(),'mysql_query(') || 
 				stristr(urldecode(phpBBSecurity_QueryString()),'mysql_query(') || 
-				stristr(base64_decode(phpBBSecurity_QueryString()),'mysql_query('))
+				stristr(phpBBSecurity_DecodedQueryString(),'mysql_query('))
 			$trick	= 3;
 			}
 			
 		#==== File Writing Prevention Help
 		if (stristr(phpBBSecurity_QueryString(),'fwrite(') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'fwrite(') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'fwrite(') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'fwrite(') || 
 			stristr(phpBBSecurity_QueryString(),'fopen(') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'fopen(') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'fopen(') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'fopen('))
 			$trick	= 5;
 		
 		#==== Perl Execution Prevention Help
 		if (stristr(phpBBSecurity_QueryString(),'system(') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'system(') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'system(') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'system('))
 			$trick = 6;		
 			
 		#==== CBACK Worm Prevention Help
 		if (stristr(phpBBSecurity_QueryString(),'rush=echo%20_START_') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'rush=echo%20_START_') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'rush=echo%20_START_') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'rush=echo%20_START_') || 
 			stristr(phpBBSecurity_QueryString(),'%20cd%20') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'%20cd%20') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'%20cd%20') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'%20cd%20') || 
 			stristr(phpBBSecurity_QueryString(),'%20/tmp;wget%20') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'%20/tmp;wget%20') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'%20/tmp;wget%20') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'%20/tmp;wget%20') || 
 			stristr(phpBBSecurity_QueryString(),'/tmp;wget%20') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'/tmp;wget%20') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'/tmp;wget%20') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'/tmp;wget%20') || 
 			stristr(phpBBSecurity_QueryString(),'/tmp;wget') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'/tmp;wget') || 
-			stristr(urldecode(phpBBSecurity_QueryString()),'/tmp;wget') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'/tmp;wget') || 
+			stristr(urldecode(phpBBSecurity_QueryString()),'/tmp;wget') ||
 			stristr(phpBBSecurity_QueryString(),'%20/tmp;wget') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'%20/tmp;wget') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'%20/tmp;wget') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'%20/tmp;wget') || 
 			stristr(phpBBSecurity_QueryString(),';perl%20') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),';perl%20') || 
+			stristr(phpBBSecurity_DecodedQueryString(),';perl%20') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),';perl%20') || 
 			stristr(phpBBSecurity_QueryString(),';wget%20') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),';wget%20') || 
+			stristr(phpBBSecurity_DecodedQueryString(),';wget%20') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),';wget%20') || 
 			stristr(phpBBSecurity_QueryString(),'wget%20') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'wget%20') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'wget%20') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'wget%20') || 			
 			stristr(phpBBSecurity_QueryString(),'%20echo%20_END_') || 
-			stristr(base64_decode(phpBBSecurity_QueryString()),'%20echo%20_END_') || 
+			stristr(phpBBSecurity_DecodedQueryString(),'%20echo%20_END_') ||
 			stristr(urldecode(phpBBSecurity_QueryString()),'%20echo%20_END_'))
 			$trick = 8;
 							
@@ -1208,7 +1216,8 @@ function phpBBSecurity_DBBackup()
       // V: add .php so that people can't just query backups from outside
       $filename = $_SERVER['DOCUMENT_ROOT'] . $board_config['script_path'] . $backup_folder ."/". $backup_file  ."-". date('Y-m-d') .".sql.php";
       file_put_contents($filename, "--<?php exit; ?>\n\n\n-- NOTE: This is a REAL SQL FILE. You can just rename it to .sql");
-      system("/usr/bin/mysqldump -u". $dbuser ." -p". $dbpasswd ." -h ". $dbhost ." ". $dbname ." >> ". $filename, $fp);
+      $dump_command = '/usr/bin/mysqldump -u'. escapeshellarg($dbuser) .' -p'. escapeshellarg($dbpasswd) .' -h '. escapeshellarg($dbhost) .' '. escapeshellarg($dbname) .' >> '. escapeshellarg($filename);
+      exec($dump_command, $dump_output, $fp);
 
       if ($fp == 0)
         $msg = 'Your Daily Database Backup Was Completed.';

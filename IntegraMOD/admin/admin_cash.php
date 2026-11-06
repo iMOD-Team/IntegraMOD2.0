@@ -35,7 +35,7 @@ if (!empty($setmodules) || !empty($navbar))
 	);
 
 	$class = 0;
-	for ( $i = 0; $i < count_safe($menu); $i++ )
+	for ( $i = 0; $i < ((($__imc0 = $menu) instanceof Countable || is_array($__imc0)) ? count($__imc0) : 0); $i++ )
 	{
 		$template->assign_block_vars("navcat",array(	"L_CATEGORY" => $menu[$i]->category,
 														"WIDTH" => $menu[$i]->num()));

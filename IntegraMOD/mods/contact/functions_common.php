@@ -45,7 +45,7 @@ function in_m_array($needle, $haystack)
 			return true;
 		}
 /*		// Search all of second dimension
-		$i_size = count_safe($haystack[$i]);
+		$i_size = ((($__imc0 = $haystack[$i]) instanceof Countable || is_array($__imc0)) ? count($__imc0) : 0);
 		for( $j = 0; $j < $i_size; $j++ )
 		{ 
 			if ( $haystack[$i][$j] == $needle )
